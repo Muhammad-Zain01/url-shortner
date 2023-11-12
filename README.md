@@ -10,7 +10,7 @@
 </div>
 
   <p align="center" style="text-align: justify;">
-    A simple and efficient URL shortener that allows you to create shortened versions of long URLs, making them easier to share and manage. This URL shortener is built with [insert programming language or framework] and [mention any key libraries or tools used]. It provides a clean and user-friendly interface for both shortening and expanding URLs.
+    A simple and efficient URL shortener that allows you to create shortened versions of long URLs, making them easier to share and manage. This URL shortener (Client Side) is built with Vite (React). It provides a clean and user-friendly interface for both shortening and expanding URLs.
   </p>
     <a href="https://github.com/muhammad-zain01/url-shortner"><strong>Explore the docs »</strong></a>
     <br />
