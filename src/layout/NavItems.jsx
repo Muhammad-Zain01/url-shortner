@@ -1,4 +1,4 @@
-import { HomeOutlined, LinkOutlined } from "@ant-design/icons"
+import { BarChartOutlined, HomeOutlined, LinkOutlined, SettingOutlined } from "@ant-design/icons"
 import { Link } from "react-router-dom"
 export const HeaderItems = [
     {
@@ -17,5 +17,15 @@ export const SideItems = [
         key: 2,
         label: <Link to="/user/link">Link</Link>,
         icon: <LinkOutlined />
+    },
+    {
+        key: 3,
+        label: <Link to="/user/analytics">Analytics</Link>,
+        icon: <BarChartOutlined />
+    },
+    {
+        key: 3,
+        label: <Link to="/user/settings">Settings</Link>,
+        icon: <SettingOutlined />
     },
 ]
