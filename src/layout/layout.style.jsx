@@ -11,7 +11,6 @@ export const NavHeader = styled(Header)`
     background-color: ${props => props.bg};
 `
 export const SideMenu = styled(Menu)`
-    height: 100%;
     border-radius: 0;
 `
 export const SideMenuContainer = styled(Sider)`
@@ -25,6 +24,7 @@ export const LayoutContent = styled(Content)`
 `
 export const LayoutContentContainer = styled(Content)`
     padding: 24px;
+    overflow-y: scroll;
 `
 export const LinkButton = styled(Button)`
     width: 100%;

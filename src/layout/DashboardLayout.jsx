@@ -33,7 +33,7 @@ const DashboardLayout = ({ children }) => {
                 />
             </NavHeader>
             <Layout>
-                <SideMenuContainer bg={colorBgContainer} width={200}>
+                <SideMenuContainer bg={colorBgContainer} width={250}>
                     <LinkButtonContainer>
                         <LinkButton icon={<PlusOutlined />} type='primary'>Create Link</LinkButton>
                     </LinkButtonContainer>
@@ -44,8 +44,8 @@ const DashboardLayout = ({ children }) => {
                     />
                 </SideMenuContainer>
                 <LayoutContentContainer>
-                    <LayoutContent bg={colorBgContainer}>
-                        {children}
+                    <LayoutContent>
+                       {children}
                     </LayoutContent>
                 </LayoutContentContainer>
             </Layout>
