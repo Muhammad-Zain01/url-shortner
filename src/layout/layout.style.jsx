@@ -12,6 +12,27 @@ export const NavHeader = styled(Header)`
 `
 export const SideMenu = styled(Menu)`
     border-radius: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    .ant-menu-item{
+        border-radius: 4px;
+        font-weight: 400;
+        width: 90%;
+        margin: 8px 0px;
+    }
+    .ant-menu-item-selected::before{
+        content: "";
+        width: 5px;
+        font-weight: 500;
+        left: 0px;
+        border-radius: 20px;
+        position: absolute;
+        height: 20px;
+        background-color: #0800ff;
+    }
+
 `
 export const SideMenuContainer = styled(Sider)`
     background-color: ${props => props.bg} !important;
