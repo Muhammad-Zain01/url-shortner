@@ -19,10 +19,12 @@ const DashboardLayout = ({ children }) => {
     const ThemeSettings = ThemeMode ? "light" : "dark";
     const route = useLocation();
     const currentPage = {
-        "/user/dashboard": "1",
-        "/user/link": "2",
-    }[route.pathname]
-
+        "dashboard": "1",
+        "link": "2",
+        "analytics": "3",
+        "settings": "4",
+    }[route.pathname.split('/')[route.pathname.split('/').length - 1]]
+    console.log()
     return (
         <Layout>
             <NavHeader bg={colorBgContainer} >
