@@ -8,7 +8,7 @@ function App() {
   return (
     <MainAppContainer>
       <Routes>
-        <Route path='user/*' element={<AdminRoutes />} />
+        <Route path=':User/*' element={<AdminRoutes />} />
       </Routes>
     </MainAppContainer>
   )
