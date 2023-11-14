@@ -9,6 +9,7 @@ const AdminRoutes = () => {
             <Route path="/" element={<Navigate to="dashboard" />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/link" element={<Links />} />
+            <Route path="/analytics" element={<Links />} />
         </Routes>
     )
 }
