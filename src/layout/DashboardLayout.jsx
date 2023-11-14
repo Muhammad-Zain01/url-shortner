@@ -8,14 +8,15 @@ import {
     LayoutContentContainer,
     SideMenuContainer,
     LinkButtonContainer,
-    LinkButton
+    LinkButton,
+    Arrow
 } from './Layout.style';
 import { useLocation } from 'react-router-dom';
-import { HeaderItems, SideItems } from './NavItems';
+import { SideItems } from './NavItems';
 
 const DashboardLayout = ({ children }) => {
     const { token: { colorBgContainer } } = theme.useToken();
-    const [collapsed, setCollapsed] = useState(true);
+    const [collapsed, setCollapsed] = useState(false);
     const route = useLocation();
     const currentPage = {
         "dashboard": "1",
@@ -27,11 +28,6 @@ const DashboardLayout = ({ children }) => {
     return (
         <Layout>
             <NavHeader bg={colorBgContainer} >
-                <Menu
-                    theme='light'
-                    mode="horizontal"
-                    items={HeaderItems}
-                />
             </NavHeader>
             <Layout>
                 <SideMenuContainer
@@ -41,6 +37,7 @@ const DashboardLayout = ({ children }) => {
                     width={250}
                     onBreakpoint={(broken) => setCollapsed(broken)}
                 >
+                    <Arrow side={!collapsed ? 'left' : 'right'}  onClick={() => setCollapsed(!collapsed)} />
                     <LinkButtonContainer>
                         <LinkButton style={{ width: '100%' }} icon={<PlusOutlined />} type='primary'>{!collapsed && `Create`}</LinkButton>
                     </LinkButtonContainer>
