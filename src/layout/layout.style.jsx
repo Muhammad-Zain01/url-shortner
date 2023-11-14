@@ -28,6 +28,7 @@ export const SideMenu = styled(Menu)`
         font-weight: 500;
         left: 0px;
         border-radius: 20px;
+        top: 25%;
         position: absolute;
         height: 20px;
         background-color: #0800ff;

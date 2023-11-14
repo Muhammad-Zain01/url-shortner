@@ -15,8 +15,7 @@ import { HeaderItems, SideItems } from './NavItems';
 
 const DashboardLayout = ({ children }) => {
     const { token: { colorBgContainer } } = theme.useToken();
-    const [ThemeMode, setThemeMode] = useState(true);
-    const ThemeSettings = ThemeMode ? "light" : "dark";
+    const [collapsed, setCollapsed] = useState(true);
     const route = useLocation();
     const currentPage = {
         "dashboard": "1",
@@ -24,20 +23,26 @@ const DashboardLayout = ({ children }) => {
         "analytics": "3",
         "settings": "4",
     }[route.pathname.split('/')[route.pathname.split('/').length - 1]]
-    console.log()
+
     return (
         <Layout>
             <NavHeader bg={colorBgContainer} >
                 <Menu
-                    theme={ThemeSettings}
+                    theme='light'
                     mode="horizontal"
                     items={HeaderItems}
                 />
             </NavHeader>
             <Layout>
-                <SideMenuContainer bg={colorBgContainer} width={250}>
+                <SideMenuContainer
+                    breakpoint='lg'
+                    collapsed={collapsed}
+                    bg={colorBgContainer}
+                    width={250}
+                    onBreakpoint={(broken) => setCollapsed(broken)}
+                >
                     <LinkButtonContainer>
-                        <LinkButton icon={<PlusOutlined />} type='primary'>Create</LinkButton>
+                        <LinkButton style={{ width: '100%' }} icon={<PlusOutlined />} type='primary'>{!collapsed && `Create`}</LinkButton>
                     </LinkButtonContainer>
                     <SideMenu
                         mode="inline"
