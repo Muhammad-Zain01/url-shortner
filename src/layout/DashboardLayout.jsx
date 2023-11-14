@@ -10,13 +10,19 @@ import {
     LinkButtonContainer,
     LinkButton
 } from './Layout.style';
-
+import { useLocation } from 'react-router-dom';
 import { HeaderItems, SideItems } from './NavItems';
 
 const DashboardLayout = ({ children }) => {
     const { token: { colorBgContainer } } = theme.useToken();
     const [ThemeMode, setThemeMode] = useState(true);
     const ThemeSettings = ThemeMode ? "light" : "dark";
+    const route = useLocation();
+    const currentPage = {
+        "/user/dashboard": "1",
+        "/user/link": "2",
+    }[route.pathname]
+    
     return (
         <Layout>
             <NavHeader bg={colorBgContainer} >
@@ -33,7 +39,7 @@ const DashboardLayout = ({ children }) => {
                     </LinkButtonContainer>
                     <SideMenu
                         mode="inline"
-                        defaultSelectedKeys={['1']}
+                        defaultSelectedKeys={currentPage}
                         items={SideItems}
                     />
                 </SideMenuContainer>
