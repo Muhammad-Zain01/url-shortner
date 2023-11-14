@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { PlusOutlined } from '@ant-design/icons';
 import { Button, Layout, Menu, theme } from 'antd';
-import { Outlet } from 'react-router-dom';
 import {
     NavHeader,
     SideMenu,
@@ -41,7 +40,6 @@ const DashboardLayout = ({ children }) => {
                 <LayoutContentContainer>
                     <LayoutContent bg={colorBgContainer}>
                         {children}
-                        <Outlet />
                     </LayoutContent>
                 </LayoutContentContainer>
             </Layout>
