@@ -1,14 +1,15 @@
 import './App.style.jsx'
 import { MainAppContainer } from './App.style.jsx'
 import { Routes, Route } from 'react-router-dom'
-import DashboardRoute from './routes/dashboard/dashboard.routes.jsx'
+import AdminRoutes from './routes/admin.routes.jsx'
+
+
 function App() {
   return (
     <MainAppContainer>
       <Routes>
-        <Route path='user/*' element={<DashboardRoute />} />
+        <Route path='user/*' element={<AdminRoutes />} />
       </Routes>
-      
     </MainAppContainer>
   )
 }

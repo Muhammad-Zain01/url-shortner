@@ -1,9 +1,9 @@
 import DashboardLayout from "../../layout/DashboardLayout"
-const Dashboard = ({ component }) => {
+const Links = () => {
     return (
         <DashboardLayout>
-            {component}
+            <div>Links</div>
         </DashboardLayout>
     )
 }
-export default Dashboard
+export default Links
