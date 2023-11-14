@@ -48,7 +48,6 @@ export const LayoutContent = styled(Content)`
     margin-top: 65px;
     min-height: 280px;
     background-color: ${props => props.bg};
-    background:white;
 `
 export const LayoutContentContainer = styled(Content)`
     padding: 24px;
