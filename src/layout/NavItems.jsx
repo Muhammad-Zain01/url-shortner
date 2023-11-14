@@ -24,7 +24,7 @@ export const SideItems = [
         icon: <BarChartOutlined />
     },
     {
-        key: 3,
+        key: 4,
         label: <Link to="/user/settings">Settings</Link>,
         icon: <SettingOutlined />
     },
