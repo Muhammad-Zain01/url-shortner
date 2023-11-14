@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { PlusOutlined } from '@ant-design/icons';
-import { Button, Layout, Menu, theme } from 'antd';
+import { Layout, Menu, theme } from 'antd';
 import {
     NavHeader,
     SideMenu,
@@ -22,7 +22,7 @@ const DashboardLayout = ({ children }) => {
         "/user/dashboard": "1",
         "/user/link": "2",
     }[route.pathname]
-    
+
     return (
         <Layout>
             <NavHeader bg={colorBgContainer} >
@@ -35,7 +35,7 @@ const DashboardLayout = ({ children }) => {
             <Layout>
                 <SideMenuContainer bg={colorBgContainer} width={250}>
                     <LinkButtonContainer>
-                        <LinkButton icon={<PlusOutlined />} type='primary'>Create Link</LinkButton>
+                        <LinkButton icon={<PlusOutlined />} type='primary'>Create</LinkButton>
                     </LinkButtonContainer>
                     <SideMenu
                         mode="inline"
@@ -45,7 +45,7 @@ const DashboardLayout = ({ children }) => {
                 </SideMenuContainer>
                 <LayoutContentContainer>
                     <LayoutContent>
-                       {children}
+                        {children}
                     </LayoutContent>
                 </LayoutContentContainer>
             </Layout>
