@@ -1,11 +1,14 @@
 import './App.style.jsx'
-import MainLayout from './layout/Layout'
 import { MainAppContainer } from './App.style.jsx'
-
+import { Routes, Route } from 'react-router-dom'
+import DashboardRoute from './routes/Dashboard.routes.jsx'
 function App() {
   return (
     <MainAppContainer>
-      <MainLayout />
+      <Routes>
+        <Route path='user/*' element={<DashboardRoute />} />
+      </Routes>
+      
     </MainAppContainer>
   )
 }
