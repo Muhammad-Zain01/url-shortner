@@ -7,17 +7,21 @@ export const AddContainer = styled.div`
     justify-content: center;
     align-items: center;
     width: 100%;
+    /* background-color: white; */
+    border: 4px;
+
 `
 
 export const AddDiv = styled.div`
-    width: 35%;
+    width: 100%;
+    padding: 40px;
+    border-radius: 4px;
+    background-color: white;
 `
 
 export const InputStyle = styled(Input)`
     padding: 10px ;
     width: 100%;
-    margin-top: 10px;
-    margin-bottom: 10px;
 `
 
 export const Inputlabel = styled(Text)`

@@ -52,6 +52,7 @@ export const LayoutContent = styled(Content)`
 export const LayoutContentContainer = styled(Content)`
     padding: 24px;
     overflow-y: scroll;
+    background-color: ${props => props.bg};
 `
 export const LinkButton = styled(Button)`
     width: 100%;

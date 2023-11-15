@@ -3,33 +3,34 @@ import { AddContainer, AddDiv, InputStyle, Inputlabel, SpanStyle, DividerStyle }
 import { Typography, Divider, Form } from "antd"
 
 const Add = () => {
+    const onSubmit = (value) => {
+        
+    }
     return (
         <DashboardLayout>
             <AddContainer>
                 <AddDiv>
-                    <Typography.Title>
+                    <Typography.Title level={2}>
                         Create new
                     </Typography.Title>
-                    <Inputlabel>
-                        Destination
-                    </Inputlabel>
+                  
                     <Form
                         name="normal_login"
                         className="login-form"
                         initialValues={{ remember: true }}
-                    //onFinish={onSubmit}
+                        layout="vertical" 
+                        onFinish={onSubmit}
                     >
                         <Form.Item
                             name="url"
-                            rules={[{ required: true, message: 'Please input URL!' }]}
+                            label="Destination"
+                            rules={[{ message: 'Please input URL!' }]}
                         >
                             <InputStyle placeholder="https://example.com/my-long-url" />
                         </Form.Item>
-                        <Inputlabel>
-                            Title <SpanStyle>(optional)</SpanStyle>
-                        </Inputlabel>
                         <Form.Item
                             name="title"
+                            label="Title"
                         >
                             <InputStyle />
                         </Form.Item>
