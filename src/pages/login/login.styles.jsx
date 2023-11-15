@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { Input, Button } from "antd";
-
+import { GoogleOutlined } from "@ant-design/icons";
 export const LoginContainer = styled.div`
     display: flex; 
     justify-content: center;
@@ -8,7 +8,7 @@ export const LoginContainer = styled.div`
     width: 100%;
 `
 export const LoginBox = styled.div`
-    width: 35%;
+    width: 35%; 
     height: 50%;
 `
 export const InputStyle = styled(Input, Input.Password)`
@@ -19,6 +19,9 @@ export const PasswordStyle = styled(Input.Password)`
 `
 export const LoginButton = styled(Button)`
     font-size: 15px;
+    width: 100%;
     height: 50px;
-
+`
+export const GoogleLogin = styled(Button)`
+    width: 100%;
 `

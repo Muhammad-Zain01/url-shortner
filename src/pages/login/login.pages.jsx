@@ -1,7 +1,7 @@
 import React from 'react';
-import { Form, Button } from 'antd';
-import { InputStyle, PasswordStyle, LoginButton, LoginBox, LoginContainer } from './login.styles';
-import { UserOutlined, LockOutlined } from '@ant-design/icons';
+import { Form, Button, Divider } from 'antd';
+import { InputStyle, PasswordStyle, LoginButton, LoginBox, LoginContainer, GoogleLogin } from './login.styles';
+import { UserOutlined, LockOutlined, GoogleOutlined } from '@ant-design/icons';
 const LoginPage = () => {
     const [form] = Form.useForm();
 
@@ -11,9 +11,7 @@ const LoginPage = () => {
     return (
         <LoginContainer>
             <LoginBox >
-                <div>
-                    <Button type='primary'> Google</Button>
-                </div>
+
                 <Form
                     name="normal_login"
                     className="login-form"
@@ -48,6 +46,10 @@ const LoginPage = () => {
                         </LoginButton>
                     </Form.Item>
                 </Form>
+                <Divider />
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column',width:'100%' }}>
+                    <LoginButton type='primary' icon={<GoogleOutlined />}>Google</LoginButton>
+                </div>
             </LoginBox>
         </LoginContainer>
     )
