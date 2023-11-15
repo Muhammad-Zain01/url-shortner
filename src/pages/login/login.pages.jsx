@@ -1,12 +1,30 @@
-import React from 'react';
-import { Form, Divider } from 'antd';
+import React, { useEffect } from 'react';
+import { Form, Divider, message } from 'antd';
 import { InputStyle, PasswordStyle, LoginButton, LoginBox, LoginContainer, GoogleLogin } from './login.styles';
 import { UserOutlined, LockOutlined, GoogleOutlined } from '@ant-design/icons';
+import { Post } from '../../utils/API';
+import { useNavigate } from 'react-router-dom';
 const LoginPage = () => {
-    const [form] = Form.useForm();
+    const navigate = useNavigate();
+    useEffect(() => {
+        let session = sessionStorage.getItem('user')
+        if (session) {
+            session = JSON.parse(session)
+            return navigate(`/${session.username}`);
+        }
+    }, [])
 
-    const onSubmit = () => {
-        console.log(form);
+    const onSubmit = async (value) => {
+        const { username, password } = value
+        const response = await Post('/events/login', { username, password })
+        console.log(response);
+        if (response.status) {
+            message.success('You have Login Successfully.');
+            sessionStorage.setItem('user', JSON.stringify(response.data));
+            navigate(`/${response.data.username}`);
+        } else {
+            message.error('User not found.');
+        }
     }
     return (
         <LoginContainer>

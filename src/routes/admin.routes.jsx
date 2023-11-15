@@ -7,6 +7,11 @@ import Analytics from "../pages/analytics/analytics.pages";
 import Settings from "../pages/settings/settings.pages";
 const AdminRoutes = () => {
     const { User } = useParams();
+    let session = sessionStorage.getItem('user')
+    if (!session) { return <Navigate to="/login" /> }
+    session = JSON.parse(session)
+    if (session.username != User)    { return <Navigate to="/login" /> }
+    
     return (
         <Routes>
             <Route path="/" element={<Navigate to="dashboard" />} />
