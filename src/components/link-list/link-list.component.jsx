@@ -1,6 +1,6 @@
 import { CopyFilled, EditFilled, LikeOutlined, MessageOutlined, StarOutlined } from '@ant-design/icons';
 import React from 'react';
-import { Avatar, Button, List, Space } from 'antd';
+import { Avatar, List, Space } from 'antd';
 import { MainUrl, OldUrl, TitleContainer, ActionButton } from './link-list.style';
 const data = [
     {
@@ -17,13 +17,14 @@ const IconText = ({ icon, text }) => (
         {text}
     </Space>
 );
+
 const LinkList = () => (
     <List
         itemLayout="vertical"
         dataSource={data}
         renderItem={(item) => (
             <List.Item
-                style={{ background: 'white', padding: 40, marginBottom: 20, borderRadius: '0.5rem' }}
+                style={{ background: 'white', border: '.1rem solid #dbe0eb', padding: 40, marginBottom: 20, borderRadius: '0.5rem' }}
                 key={item.title}
                 actions={[
                     <IconText icon={StarOutlined} text="156" key="list-vertical-star-o" />,
