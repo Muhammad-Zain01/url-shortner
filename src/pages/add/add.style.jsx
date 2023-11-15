@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Input, Button, Typography } from "antd";
+import { Input, Button, Typography, Divider } from "antd";
 const { Text } = Typography;
 
 export const AddContainer = styled.div`
@@ -27,4 +27,9 @@ export const Inputlabel = styled(Text)`
 
 export const SpanStyle = styled.span`
     font-weight: 300;
+`
+
+export const DividerStyle = styled(Divider)`
+    border: 1.7px solid #e8ebf2;
+    margin: 40px 0;
 `

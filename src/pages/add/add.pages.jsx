@@ -1,7 +1,6 @@
 import DashboardLayout from "../../layout/DashboardLayout"
-import { AddContainer, AddDiv, InputStyle, Inputlabel, SpanStyle } from "./add.style"
+import { AddContainer, AddDiv, InputStyle, Inputlabel, SpanStyle, DividerStyle } from "./add.style"
 import { Typography, Divider, Form } from "antd"
-import { UserOutlined } from '@ant-design/icons';
 
 const Add = () => {
     return (
@@ -35,6 +34,7 @@ const Add = () => {
                             <InputStyle />
                         </Form.Item>
                     </Form>
+                    <DividerStyle />
                 </AddDiv>
             </AddContainer>
         </DashboardLayout>
