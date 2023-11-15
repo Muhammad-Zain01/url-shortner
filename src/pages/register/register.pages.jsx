@@ -1,13 +1,42 @@
-import React from 'react';
-import { Form, Button, Divider } from 'antd';
+import React, { useState } from 'react';
+import { Form, message, Divider } from 'antd';
 import { InputStyle, PasswordStyle, LoginButton, LoginBox, LoginContainer } from '../login/login.styles';
 import { UserOutlined, LockOutlined, GoogleOutlined, MailOutlined } from '@ant-design/icons';
+import { Post } from "../../utils/API"
+import { useNavigate } from "react-router-dom";
+import validator from 'validator'
+
 const RegisterPage = () => {
-    const onSubmit = (value) => {
+    const redirect = useNavigate();
+    const [UsernameConfig, setUsernameConfig] = useState({
+        validateStatus: '',
+        hasFeedback: false,
+        help: ''
+    })
+    const [EmailConfig, setEmailConfig] = useState({
+        validateStatus: '',
+        hasFeedback: false,
+        help: ''
+    })
+    const onSubmit = async (value) => {
         const { username, email, password } = value
-        console.log(username)
-        console.log(email)
-        console.log(password)
+        const response = await Post(`/events/verify/${username}`)
+        if (response.status) {
+            setUsernameConfig({ validateStatus: 'error', hasFeedback: true, help: 'Username already exists' })
+            return;
+        }
+        setUsernameConfig({ validateStatus: 'success', hasFeedback: true, help: '' })
+        if (!validator.isEmail(email) == true) {
+            setEmailConfig({ validateStatus: 'error', hasFeedback: true, help: 'Email is not valid' })
+            return;
+        }
+        setEmailConfig({ validateStatus: 'success', hasFeedback: true, help: '' })
+        const regResponse = await Post('/events/register', { username, email, password })
+        if(regResponse.status){
+            message.success('You have Successfully Registed.');
+            redirect("/login");
+        }
+        
     }
     return (
         <LoginContainer>
@@ -21,12 +50,18 @@ const RegisterPage = () => {
                 >
                     <Form.Item
                         name="username"
+                        validateStatus={UsernameConfig.validateStatus}
+                        hasFeedback={UsernameConfig.hasFeedback}
+                        help={UsernameConfig.help}
                         rules={[{ required: true, message: 'Please input your Username!' }]}
                     >
                         <InputStyle prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" />
                     </Form.Item>
                     <Form.Item
                         name="email"
+                        validateStatus={EmailConfig.validateStatus}
+                        hasFeedback={EmailConfig.hasFeedback}
+                        help={EmailConfig.help}
                         rules={[{ required: true, message: 'Please input your Email!' }]}
                     >
                         <InputStyle prefix={<MailOutlined className="site-form-item-icon" />} placeholder="Email" />
