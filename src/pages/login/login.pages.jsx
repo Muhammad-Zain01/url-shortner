@@ -1,12 +1,12 @@
 import React from 'react';
-import { Form, Button, Divider } from 'antd';
+import { Form, Divider } from 'antd';
 import { InputStyle, PasswordStyle, LoginButton, LoginBox, LoginContainer, GoogleLogin } from './login.styles';
 import { UserOutlined, LockOutlined, GoogleOutlined } from '@ant-design/icons';
 const LoginPage = () => {
     const [form] = Form.useForm();
 
     const onSubmit = () => {
-
+        console.log(form);
     }
     return (
         <LoginContainer>
@@ -47,7 +47,7 @@ const LoginPage = () => {
                     </Form.Item>
                 </Form>
                 <Divider />
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column',width:'100%' }}>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', width: '100%' }}>
                     <LoginButton type='primary' icon={<GoogleOutlined />}>Google</LoginButton>
                 </div>
             </LoginBox>

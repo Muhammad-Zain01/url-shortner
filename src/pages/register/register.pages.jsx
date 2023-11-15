@@ -3,9 +3,11 @@ import { Form, Button, Divider } from 'antd';
 import { InputStyle, PasswordStyle, LoginButton, LoginBox, LoginContainer } from '../login/login.styles';
 import { UserOutlined, LockOutlined, GoogleOutlined, MailOutlined } from '@ant-design/icons';
 const RegisterPage = () => {
-    const [form] = Form.useForm();
-    const onSubmit = () => {
-
+    const onSubmit = (value) => {
+        const { username, email, password } = value
+        console.log(username)
+        console.log(email)
+        console.log(password)
     }
     return (
         <LoginContainer>
@@ -47,13 +49,13 @@ const RegisterPage = () => {
 
                     <Form.Item>
                         <LoginButton size='medium' style={{ width: '100%' }} type="primary" htmlType="submit" className="login-form-button">
-                            Log in
+                            Register
                         </LoginButton>
                     </Form.Item>
                 </Form>
                 <Divider />
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', width: '100%' }}>
-                    <LoginButton type='primary' icon={<GoogleOutlined />}>Google</LoginButton>
+                    <LoginButton type='primary' icon={<GoogleOutlined />}>Register   with Google</LoginButton>
                 </div>
             </LoginBox>
         </LoginContainer>
