@@ -10,7 +10,7 @@ export async function Request(request_type, url, data = {}, headers = {}) {
     };
 
     return await axios.request(config)
-        .then((response) => {console.log(response);return response.data})
+        .then((response) => response.data)
         .catch((error) => error);
 }
 
