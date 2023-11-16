@@ -1,35 +1,24 @@
 import { CopyFilled, EditFilled, LikeOutlined, MessageOutlined, StarOutlined } from '@ant-design/icons';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { Avatar, List, Space, Skeleton } from 'antd';
 import { MainUrl, OldUrl, TitleContainer, ActionButton, SkeletonBox } from './link-list.style';
 import { Post } from "../../utils/API"
 import useSession from '../../hook/useSession';
 import { IconParser } from '../../utils/helper';
 import LinkListSkeleton from './link-list-skeleton.component';
-const data = [
-    {
-        id: 'UNIQUE_ID',
-        url: 'www.google.com',
-        new_url: 'www.bitly.com/xyz',
-        title: `Google`,
-        avatar: `https://t0.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://www.google.com&size=32`,
-    },
-]
 const IconText = ({ icon, text }) => (
     <Space>
         {React.createElement(icon)}
         {text}
     </Space>
 );
-
 const LinkList = () => {
     const [data, setData] = useState([])
     const [loading, setLoading] = useState(true);
     const session = JSON.parse(useSession().get('user'))
-    useEffect(() => {
-        const parse = async (item) => {
+    const parse = useCallback(
+        async (item) => {
             let avatar = await IconParser(item.url)
-            console.log(item.url,avatar);
             let new_url = "https://bit.ly/" + item.keyword
             const data = {
                 url: item.url,
@@ -38,7 +27,11 @@ const LinkList = () => {
                 avatar
             };
             return data
-        }
+        },
+        [],
+    )
+
+    useEffect(() => {
         const handleRequest = async () => {
             setLoading(true)
             const response = await Post("/events/get-urls", { user: session });
@@ -80,7 +73,7 @@ const LinkList = () => {
                                     }
                                 >
                                     <List.Item.Meta
-                                        avatar={<Avatar style={{ border: '1px solid #abababb5', width: 40, padding: 2, height: 40 }} src={item.avatar} />}
+                                        avatar={<Avatar style={{ border: '1px solid #abababb5', width: 40, padding: 5, height: 40 }} src={item.avatar} />}
                                         title={
                                             <>
                                                 <TitleContainer>
