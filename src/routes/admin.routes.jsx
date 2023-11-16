@@ -10,8 +10,7 @@ const AdminRoutes = () => {
     let session = sessionStorage.getItem('user')
     if (!session) { return <Navigate to="/login" /> }
     session = JSON.parse(session)
-    if (session.username != User)    { return <Navigate to="/login" /> }
-    
+    if (session.username != User) { return <Navigate to="/login" /> }
     return (
         <Routes>
             <Route path="/" element={<Navigate to="dashboard" />} />
