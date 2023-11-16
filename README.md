@@ -1,7 +1,7 @@
 <br />
 <div align="center">
 
-<h3 align="center">URL Shortner (Backend)</h3>
+<h3 align="center">URL Shortner (Client)</h3>
 <div>
     <a href="https://github.com/muhammad-zain01/url-shortner-backend/graphs/contributors"><img src="https://img.shields.io/github/contributors/muhammad-zain01/url-shortner-backend.svg?style=for-the-badge" /></a>
     <a href="https://github.com/muhammad-zain01/url-shortner-backend/network/members"><img src="https://img.shields.io/github/forks/muhammad-zain01/url-shortner-backend.svg?style=for-the-badge" /></a>
@@ -10,14 +10,14 @@
 </div>
 
   <p align="center" style="text-align: justify;">
-    A simple and efficient URL shortener that allows you to create shortened versions of long URLs, making them easier to share and manage. This URL shortener (Backend) is built with Express.js and Node.js. It provides a clean and user-friendly interface for both shortening and expanding URLs.
+    A simple and efficient URL shortener that allows you to create shortened versions of long URLs, making them easier to share and manage. This URL shortener (Client) is built with React.js (Vite). It provides a clean and user-friendly interface for both shortening and expanding URLs.
   </p>
     <a href="https://github.com/muhammad-zain01/url-shortner-backend"><strong>Explore the docs »</strong></a>
     <br />
     <br />
     <a href="https://muhammad-zain01.github.io/url-shortner-backend/">View Demo</a>
     -
-    <a href="https://github.com/muhammad-zain01/url-shortner-backend/issues">Report Bug</a>
+    <a href="https://github.com/Muhammad-Zain01/url-shortner-backend">Backend Repo</a>
     -
     <a href="https://github.com/muhammad-zain01/url-shortner-backend/issues">Request Feature</a>
     <br />
@@ -30,15 +30,7 @@
 
 ### Built With
 
-<!-- * [![Next][Next.js]][Next-url] -->
-* [![Node][Node.js]][React-url]
-* [![Express][Express.js]][React-url]
-<!-- * [![Vue][Vue.js]][Vue-url] -->
-<!-- * [![Angular][Angular.io]][Angular-url] -->
-<!-- * [![Svelte][Svelte.dev]][Svelte-url] -->
-<!-- * [![Laravel][Laravel.com]][Laravel-url] -->
-<!-- * [![Bootstrap][Bootstrap.com]][Bootstrap-url] -->
-<!-- * [![JQuery][JQuery.com]][JQuery-url] -->
+* [![React][React.js]][React-url]
 
 ## Getting Started
 
@@ -65,7 +57,7 @@ This is an example of how to list things you need to use the software and how to
    ```
 3. For Starting Server
    ```sh
-   npm start
+   npm run dev
    ```
 
 
@@ -117,12 +109,3 @@ Don't forget to give the project a star! Thanks again!
 [JQuery.com]: https://img.shields.io/badge/jQuery-0769AD?style=for-the-badge&logo=jquery&logoColor=white
 [JQuery-url]: https://jquery.com 
 
-
-# React + Vite
-
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
