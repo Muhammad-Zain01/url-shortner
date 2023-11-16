@@ -3,9 +3,52 @@ import { Container, Box, LinkContainer } from "./add-link.style"
 import { Typography, Divider, Form } from "antd"
 import { Input } from "../../components/input/input.component"
 import { Button } from "../../components/button/button.component"
+import { isValidUrl, TitleParser } from "../../utils/helper"
+import { useRef, useState } from "react"
 const AddLink = () => {
-    const onSubmit = (value) => {
-        console.log(value);
+    const [title, setTitle] = useState('')
+    const [url, setUrl] = useState('')
+    const [urlConfig, setUrlConfig] = useState({
+        hasFeedback: false,
+        validateStatus: "",
+        help: ""
+    });
+    const urlValidation = async (value) => {
+        if (isValidUrl(value)) {
+            setUrlConfig({
+                hasFeedback: true,
+                validateStatus: "validating",
+                help: ""
+            })
+            const ParsedTitle = await TitleParser(value);
+            setTitle(ParsedTitle)
+            setUrlConfig({
+                hasFeedback: true,
+                validateStatus: "success",
+                help: ""
+            })
+            return true;
+        } else {
+            setUrlConfig({
+                hasFeedback: true,
+                validateStatus: "error",
+                help: "Please add valid url."
+            })
+            return false;
+        }
+    }
+    const onSubmit = async (value) => {
+        const { url, backhalf } = value
+        const urlValidated = await urlValidation(url);
+        if (urlValidated) {
+            console.log(url)
+            console.log(backhalf)
+            console.log(title)
+        }
+    }
+    const HandleUrl = async (event) => {
+        const value = event.target.value;
+
     }
     return (
         <DashboardLayout>
@@ -25,19 +68,18 @@ const AddLink = () => {
                         <Form.Item
                             name="url"
                             label="Destination URL"
-                            rules={[{ message: 'Please input URL!' }]}
+                            hasFeedback={urlConfig.hasFeedback}
+                            validateStatus={urlConfig.validateStatus}
+                            help={urlConfig.help}
                         >
-                            <Input placeholder="https://example.com/long-url" />
+                            <Input prefix="" value={url} onChange={(e) => setUrl(e.target.value)} placeholder="example.com/long-url" onBlur={HandleUrl} />
                         </Form.Item>
-                        <Form.Item
-                            name="title"
-                            label="Title"
-                        >
-                            <Input />
+                        <Form.Item label="Title">
+                            <Input value={title} onChange={(e) => setTitle(e.target.value)} />
                         </Form.Item>
                         <LinkContainer>
                             <Form.Item label="Domain" style={{ width: '100%' }}>
-                                <Input disabled value="sh.ly" />
+                                <Input disabled value="bit.ly" />
                             </Form.Item>
                             <span style={{ margin: '0 10px' }}>/</span>
                             <Form.Item name="backhalf" label="Custom back-half (optional)" style={{ width: '100%' }} >
@@ -45,7 +87,9 @@ const AddLink = () => {
                             </Form.Item>
                         </LinkContainer>
                         <Divider />
-                        <Button type="primary">Add</Button>
+                        <Form.Item>
+                            <Button type="primary" htmlType="submit">Add</Button>
+                        </Form.Item>
                     </Form>
                 </Box>
             </Container>
