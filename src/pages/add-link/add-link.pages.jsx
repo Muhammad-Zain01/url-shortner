@@ -88,14 +88,14 @@ const AddLink = () => {
                             validateStatus={urlConfig.validateStatus}
                             help={urlConfig.help}
                         >
-                            <Input prefix="" value={url} onChange={(e) => setUrl(e.target.value)} placeholder="example.com/long-url" onBlur={HandleUrl} />
+                            <Input prefix="" value={url} onChange={(e) => setUrl(e.target.value)} placeholder="https://example.com/long-url" onBlur={HandleUrl} />
                         </Form.Item>
                         <Form.Item label="Title">
                             <Input value={title} onChange={(e) => setTitle(e.target.value)} />
                         </Form.Item>
                         <LinkContainer>
                             <Form.Item label="Domain" style={{ width: '100%' }}>
-                                <Input disabled value="bit.ly" />
+                                <Input disabled value={import.meta.env.VITE_DOMAIN_URL} />
                             </Form.Item>
                             <span style={{ margin: '0 10px' }}>/</span>
                             <Form.Item name="backhalf" label="Custom back-half (optional)" style={{ width: '100%' }} >

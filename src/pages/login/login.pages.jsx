@@ -19,7 +19,6 @@ const LoginPage = () => {
     const onSubmit = async (value) => {
         const { username, password } = value
         const response = await Post('/events/login', { username, password })
-        console.log(response);
         if (response.status) {
             message.success('You have Login Successfully.');
             sessionStorage.setItem('user', JSON.stringify(response.data));
