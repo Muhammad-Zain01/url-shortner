@@ -1,13 +1,14 @@
 import { BarChartOutlined, HomeOutlined, LinkOutlined, SettingOutlined } from "@ant-design/icons"
 import { Link } from "react-router-dom"
+import useSession from "../hook/useSession"
 export const HeaderItems = [
     {
         key: 1,
         label: "Test",
     }
 ]
-let session = sessionStorage.getItem('user')
-session = session != null &&JSON.parse(session)
+let session = useSession().get('user')
+session = session != null && JSON.parse(session)
 
 export const SideItems = [
     {

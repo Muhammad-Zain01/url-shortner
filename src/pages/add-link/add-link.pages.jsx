@@ -1,11 +1,14 @@
 import DashboardLayout from "../../layout/DashboardLayout"
 import { Container, Box, LinkContainer } from "./add-link.style"
-import { Typography, Divider, Form } from "antd"
+import { Typography, Divider, Form, message } from "antd"
 import { Input } from "../../components/input/input.component"
 import { Button } from "../../components/button/button.component"
 import { isValidUrl, TitleParser } from "../../utils/helper"
-import { useRef, useState } from "react"
+import { useState } from "react"
+import { Post } from "../../utils/API"
+import PrivateNavigate from "../../hook/usePrivateNavigate"
 const AddLink = () => {
+    const adminRedirect = PrivateNavigate();
     const [title, setTitle] = useState('')
     const [url, setUrl] = useState('')
     const [urlConfig, setUrlConfig] = useState({
@@ -41,14 +44,27 @@ const AddLink = () => {
         const { url, backhalf } = value
         const urlValidated = await urlValidation(url);
         if (urlValidated) {
-            console.log(url)
-            console.log(backhalf)
-            console.log(title)
+            const user = JSON.parse(sessionStorage.getItem('user'))
+            let newTitle = title;
+            if (newTitle == "") {
+                newTitle = await TitleParser(url);
+            }
+            const data = {
+                url,
+                title: newTitle,
+                keyword: backhalf ?? "",
+                user
+            }
+            const response = await Post('/events/add', data);
+            if(response?.status == 1){
+                message.success('Link added successfully.');
+                adminRedirect('link')
+            }
         }
     }
     const HandleUrl = async (event) => {
         const value = event.target.value;
-
+        urlValidation(value);
     }
     return (
         <DashboardLayout>
