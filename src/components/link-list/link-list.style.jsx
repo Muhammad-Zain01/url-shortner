@@ -26,7 +26,14 @@ export const ActionButton = styled(Button)`
     border-radius: 0.2rem;
     margin: 0px 5px;
     padding: 2px 8px;
-    ${
-        props => props.type != 'primary' && 'color: #595959;'
+    ${props => props.type != 'primary' && 'color: #595959;'
     }
+`
+export const SkeletonBox = styled.div`
+    width: 100%;
+    margin-bottom: 25px;
+    border-radius:12px;
+    display: flex;
+    padding: 40px 20px;
+    border: 1px solid #e9e9e9;
 `
