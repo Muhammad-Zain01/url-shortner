@@ -7,6 +7,10 @@ const useSession = () => {
         sessionStorage.setItem(key, value)
         return true;
     }
-    return { get, set }
+    const clear = () => {
+        sessionStorage.clear();
+        return true;
+    }
+    return { get, set, clear }
 }
 export default useSession;
