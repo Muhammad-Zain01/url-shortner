@@ -1,8 +1,10 @@
 import React, { useEffect } from 'react';
 import { Form, Divider, message } from 'antd';
-import { InputStyle, PasswordStyle, LoginButton, LoginBox, LoginContainer, GoogleLogin } from './login.styles';
+import { LoginBox, LoginContainer } from './login.styles';
 import { UserOutlined, LockOutlined, GoogleOutlined } from '@ant-design/icons';
 import { Post } from '../../utils/API';
+import { Input } from '../../components/input/input.component';
+import { Button } from "../../components/button/button.component"
 import { useNavigate } from 'react-router-dom';
 const LoginPage = () => {
     const navigate = useNavigate();
@@ -40,13 +42,13 @@ const LoginPage = () => {
                         name="username"
                         rules={[{ required: true, message: 'Please input your Username!' }]}
                     >
-                        <InputStyle prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" />
+                        <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" />
                     </Form.Item>
                     <Form.Item
                         name="password"
                         rules={[{ required: true, message: 'Please input your Password!' }]}
                     >
-                        <PasswordStyle
+                        <Input
                             prefix={<LockOutlined className="site-form-item-icon" />}
                             type="password"
                             placeholder="Password"
@@ -59,14 +61,14 @@ const LoginPage = () => {
                     </Form.Item>
 
                     <Form.Item>
-                        <LoginButton size='medium' style={{ width: '100%' }} type="primary" htmlType="submit" className="login-form-button">
+                        <Button size='medium' style={{ width: '100%' }} type="primary" htmlType="submit" className="login-form-button">
                             Log in
-                        </LoginButton>
+                        </Button>
                     </Form.Item>
                 </Form>
                 <Divider />
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', width: '100%' }}>
-                    <LoginButton type='primary' icon={<GoogleOutlined />}>Google</LoginButton>
+                    <Button type='primary' icon={<GoogleOutlined />}>Google</Button>
                 </div>
             </LoginBox>
         </LoginContainer>

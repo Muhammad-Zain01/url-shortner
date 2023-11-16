@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { Form, message, Divider } from 'antd';
-import { InputStyle, PasswordStyle, LoginButton, LoginBox, LoginContainer } from '../login/login.styles';
+import { LoginBox, LoginContainer } from '../login/login.styles';
 import { UserOutlined, LockOutlined, GoogleOutlined, MailOutlined } from '@ant-design/icons';
+import { Input } from '../../components/input/input.component';
+import { Button } from '../../components/button/button.component';
 import { Post } from "../../utils/API"
 import { useNavigate } from "react-router-dom";
 import validator from 'validator'
@@ -32,11 +34,11 @@ const RegisterPage = () => {
         }
         setEmailConfig({ validateStatus: 'success', hasFeedback: true, help: '' })
         const regResponse = await Post('/events/register', { username, email, password })
-        if(regResponse.status){
+        if (regResponse.status) {
             message.success('You have Successfully Registed.');
             redirect("/login");
         }
-        
+
     }
     return (
         <LoginContainer>
@@ -55,7 +57,7 @@ const RegisterPage = () => {
                         help={UsernameConfig.help}
                         rules={[{ required: true, message: 'Please input your Username!' }]}
                     >
-                        <InputStyle prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" />
+                        <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" />
                     </Form.Item>
                     <Form.Item
                         name="email"
@@ -64,13 +66,13 @@ const RegisterPage = () => {
                         help={EmailConfig.help}
                         rules={[{ required: true, message: 'Please input your Email!' }]}
                     >
-                        <InputStyle prefix={<MailOutlined className="site-form-item-icon" />} placeholder="Email" />
+                        <Input type='email' prefix={<MailOutlined className="site-form-item-icon" />} placeholder="Email" />
                     </Form.Item>
                     <Form.Item
                         name="password"
                         rules={[{ required: true, message: 'Please input your Password!' }]}
                     >
-                        <PasswordStyle
+                        <Input
                             prefix={<LockOutlined className="site-form-item-icon" />}
                             type="password"
                             placeholder="Password"
@@ -83,14 +85,14 @@ const RegisterPage = () => {
                     </Form.Item>
 
                     <Form.Item>
-                        <LoginButton size='medium' style={{ width: '100%' }} type="primary" htmlType="submit" className="login-form-button">
+                        <Button size='medium' style={{ width: '100%' }} type="primary" htmlType="submit" className="login-form-button">
                             Register
-                        </LoginButton>
+                        </Button>
                     </Form.Item>
                 </Form>
                 <Divider />
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', width: '100%' }}>
-                    <LoginButton type='primary' icon={<GoogleOutlined />}>Register   with Google</LoginButton>
+                    <Button type='primary' icon={<GoogleOutlined />}>Register   with Google</Button>
                 </div>
             </LoginBox>
         </LoginContainer>
