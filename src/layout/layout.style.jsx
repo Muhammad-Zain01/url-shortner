@@ -5,6 +5,7 @@ import { LeftOutlined } from '@ant-design/icons';
 
 export const NavHeader = styled(Header)`
     display: flex;
+    padding: 0 20px;
     position: absolute;
     width: 100%;
     top: 0;
@@ -12,7 +13,7 @@ export const NavHeader = styled(Header)`
     justify-content: end;
     border-bottom: .1rem solid #dbe0eb;
     background-color: ${props => props.bg};
-    /* z-index: 10; */
+    z-index: 1;
 `
 export const SideMenu = styled(Menu)`
     border-radius: 0;
@@ -42,6 +43,7 @@ export const SideMenu = styled(Menu)`
 export const SideMenuContainer = styled(Sider)`
     background-color: ${props => props.bg} !important;
     border-right: .1rem solid #dbe0eb;
+    z-index: 2;
 `
 export const LayoutContent = styled(Content)`
     padding: 24px;

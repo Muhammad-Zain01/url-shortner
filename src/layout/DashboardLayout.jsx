@@ -13,7 +13,7 @@ import {
 } from './Layout.style';
 import { useLocation } from 'react-router-dom';
 import { SideItems } from './NavItems';
-
+import UserAction from '../components/user-action/user-action.components';
 const DashboardLayout = ({ children }) => {
     const { token: { colorBgContainer } } = theme.useToken();
     const [collapsed, setCollapsed] = useState(false);
@@ -28,6 +28,7 @@ const DashboardLayout = ({ children }) => {
     return (
         <Layout>
             <NavHeader bg={colorBgContainer} >
+                <UserAction />
             </NavHeader>
             <Layout>
                 <SideMenuContainer
@@ -37,9 +38,9 @@ const DashboardLayout = ({ children }) => {
                     width={250}
                     onBreakpoint={(broken) => setCollapsed(broken)}
                 >
-                    <Arrow side={!collapsed ? 'left' : 'right'}  onClick={() => setCollapsed(!collapsed)} />
+                    <Arrow side={!collapsed ? 'left' : 'right'} onClick={() => setCollapsed(!collapsed)} />
                     <LinkButtonContainer>
-                        <LinkButton style={{ width: '100%' }} icon={<PlusOutlined />} type='primary'>{!collapsed && `Create`}</LinkButton>
+                        <LinkButton style={{ width: '100%' }} type='primary'>{!collapsed ? `Create new` : <PlusOutlined />}</LinkButton>
                     </LinkButtonContainer>
                     <SideMenu
                         mode="inline"
