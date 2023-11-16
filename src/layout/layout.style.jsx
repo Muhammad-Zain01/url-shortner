@@ -36,7 +36,7 @@ export const SideMenu = styled(Menu)`
         top: 25%;
         position: absolute;
         height: 20px;
-        background-color: #0800ff;
+        background-color: ${props => props.ico};
     }
 
 `

@@ -1,34 +1,24 @@
 import { BarChartOutlined, HomeOutlined, LinkOutlined, SettingOutlined } from "@ant-design/icons"
-import { Link } from "react-router-dom"
-import useSession from "../hook/useSession"
-export const HeaderItems = [
-    {
-        key: 1,
-        label: "Test",
-    }
-]
-let session = useSession().get('user')
-session = session != null && JSON.parse(session)
-
+import AdminLink from "../components/admin-link/admin-link"
 export const SideItems = [
     {
         key: 1,
-        label: <Link to={`/${session.username}/dashboard`}>Dashboard</Link>,
+        label: <AdminLink to={`/dashboard`}>Dashboard</AdminLink>,
         icon: <HomeOutlined />
     },
     {
         key: 2,
-        label: <Link to={`/${session.username}/link`}>Link</Link>,
+        label: <AdminLink to={`/link`}>Link</AdminLink>,
         icon: <LinkOutlined />
     },
     {
         key: 3,
-        label: <Link to={`/${session.username}/analytics`}>Analytics</Link>,
+        label: <AdminLink to={`/analytics`}>Analytics</AdminLink>,
         icon: <BarChartOutlined />
     },
     {
         key: 4,
-        label: <Link to={`/${session.username}/settings`}>Settings</Link>,
+        label: <AdminLink to={`/settings`}>Settings</AdminLink>,
         icon: <SettingOutlined />
     },
 ]

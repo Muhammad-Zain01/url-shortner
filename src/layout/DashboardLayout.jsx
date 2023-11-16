@@ -15,7 +15,7 @@ import { useLocation } from 'react-router-dom';
 import { SideItems } from './NavItems';
 import UserAction from '../components/user-action/user-action.components';
 const DashboardLayout = ({ children }) => {
-    const { token: { colorBgContainer } } = theme.useToken();
+    const { token: { colorBgContainer, colorPrimary } } = theme.useToken();
     const [collapsed, setCollapsed] = useState(false);
     const route = useLocation();
     const currentPage = {
@@ -43,6 +43,7 @@ const DashboardLayout = ({ children }) => {
                         <LinkButton style={{ width: '100%' }} type='primary'>{!collapsed ? `Create new` : <PlusOutlined />}</LinkButton>
                     </LinkButtonContainer>
                     <SideMenu
+                        ico={colorPrimary}
                         mode="inline"
                         defaultSelectedKeys={currentPage}
                         items={SideItems}
