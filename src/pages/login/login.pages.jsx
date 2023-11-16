@@ -25,7 +25,7 @@ const LoginPage = () => {
             sessionStorage.setItem('user', JSON.stringify(response.data));
             navigate(`/${response.data.username}`);
         } else {
-            message.error('User not found.');
+            message.error('Email or Password is not valid.');
         }
     }
     return (
