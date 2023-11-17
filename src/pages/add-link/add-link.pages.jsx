@@ -118,7 +118,7 @@ const AddLink = () => {
                         </Form.Item>
                         <LinkContainer>
                             <Form.Item label="Domain" style={{ width: '100%' }}>
-                                <Input disabled value={import.meta.env.VITE_DOMAIN_URL} />
+                                <Input disabled value={import.meta.env.VITE_DOMAIN_URL+'/go'} />
                             </Form.Item>
                             <span style={{ margin: '0 10px' }}>/</span>
                             <Form.Item
