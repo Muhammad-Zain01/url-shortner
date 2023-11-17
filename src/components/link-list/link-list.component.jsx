@@ -26,7 +26,7 @@ const LinkList = () => {
             if (response?.status == 1) {
                 let result = response?.data.map((item) => {
                     let avatar = item.icon
-                    let new_url = `https://${import.meta.env.VITE_DOMAIN_URL}/${item.keyword}`
+                    let new_url = `${import.meta.env.VITE_DOMAIN_URL}/go/${item.keyword}`
                     const data = {
                         url: item.url,
                         new_url,
@@ -76,10 +76,10 @@ const LinkList = () => {
                                             title={
                                                 <>
                                                     <TitleContainer>
-                                                        <a href={item.url}>
+                                                        <a>
                                                             {item.title}
                                                         </a><br />
-                                                        <MainUrl>
+                                                        <MainUrl onClick={() => window.location.href = (`${item.new_url}`)}>
                                                             {item.new_url}
                                                         </MainUrl><br />
                                                         <OldUrl>
