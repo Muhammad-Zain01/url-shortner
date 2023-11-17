@@ -3,7 +3,7 @@ import { Container, Box, LinkContainer } from "./add-link.style"
 import { Typography, Divider, Form, message } from "antd"
 import { Input } from "../../components/input/input.component"
 import { Button } from "../../components/button/button.component"
-import { isValidUrl, TitleParser } from "../../utils/helper"
+import { isValidUrl, TitleParser, IconParser } from "../../utils/helper"
 import { useState } from "react"
 import { Post } from "../../utils/API"
 import PrivateNavigate from "../../hook/usePrivateNavigate"
@@ -12,6 +12,11 @@ const AddLink = () => {
     const [title, setTitle] = useState('')
     const [url, setUrl] = useState('')
     const [urlConfig, setUrlConfig] = useState({
+        hasFeedback: false,
+        validateStatus: "",
+        help: ""
+    });
+    const [keyword, setkeyword] = useState({
         hasFeedback: false,
         validateStatus: "",
         help: ""
@@ -49,14 +54,32 @@ const AddLink = () => {
             if (newTitle == "") {
                 newTitle = await TitleParser(url);
             }
+            if (backhalf != "") {
+                const response = await Post(`/events/verify/keyword/${backhalf}`);
+                if (response.status == 0) {
+                    setkeyword({
+                        hasFeedback: true,
+                        validateStatus: "error",
+                        help: "Use another keyword, keyword already exists."
+                    });
+                    return;
+                }
+                setkeyword({
+                    hasFeedback: true,
+                    validateStatus: "success",
+                    help: ""
+                });
+            }
+            const icon = await IconParser(url);
             const data = {
                 url,
                 title: newTitle,
                 keyword: backhalf ?? "",
-                user
+                user,
+                icon
             }
             const response = await Post('/events/add', data);
-            if(response?.status == 1){
+            if (response?.status == 1) {
                 message.success('Link added successfully.');
                 adminRedirect('link')
             }
@@ -98,7 +121,14 @@ const AddLink = () => {
                                 <Input disabled value={import.meta.env.VITE_DOMAIN_URL} />
                             </Form.Item>
                             <span style={{ margin: '0 10px' }}>/</span>
-                            <Form.Item name="backhalf" label="Custom back-half (optional)" style={{ width: '100%' }} >
+                            <Form.Item
+                                name="backhalf"
+                                label="Custom back-half (optional)"
+                                style={{ width: '100%' }}
+                                hasFeedback={keyword.hasFeedback}
+                                validateStatus={keyword.validateStatus}
+                                help={keyword.help}
+                            >
                                 <Input />
                             </Form.Item>
                         </LinkContainer>
