@@ -46,3 +46,9 @@ export const isValidUrl = (url) => {
         '(\\#[-a-zA-Z\\d_]*)?$', 'i'); // fragment locator
     return !!pattern.test(url);
 }
+export const validateURL = (url) => {
+    if (!url.match(/^https?:\/\//)) {
+        url = 'http://' + url;
+    }
+    return url
+}
