@@ -1,40 +1,33 @@
 import React from 'react';
 import { Dropdown } from 'antd';
-import { UserActionButton, UserAvatar } from './user-action.styles';
+import { UserActionButton, UserAvatar, UserActionContainer, UserActionDiv, SpanName, SpanEmail } from './user-action.styles';
 import useSession from '../../hook/useSession';
 
-const items = [
-    {
-        label:
-            (
-                <div style={{ display: 'flex', padding: 10 }}>
-                    <UserAvatar size="large">Z</UserAvatar>
-                    <div style={{ display: 'flex', flexDirection: 'column' }}>
-                        <span style={{ padding: '0px 10px ' }}>zainmemon</span>
-                        <span style={{ fontSize: 12, color: '#979797', padding: '0px 10px ' }}>zain.verge@gmail.com</span>
-                    </div>
-                </div>
-            ),
-        key: '0',
-    },
-    {
-        type: 'divider',
-    },
-    {
-        label: "Sign Out",
-        key: 'signout',
-    },
-];
-
-
 const UserAction = () => {
-    const session = useSession();
+    let SESSION = useSession();
+    let session = SESSION != null ? JSON.parse(SESSION.get('user')) : {};
+    const items = []
     const onClick = (value) => {
+        console.log(value);
         if (value.key == 'signout') {
-            session.clear();
+            SESSION.clear();
             window.location.reload();
         }
     };
+    const UserDetails = (
+        <UserActionContainer>
+            <UserAvatar size="large">Z</UserAvatar>
+            <UserActionDiv>
+                <SpanName>{session.username}</SpanName>
+                <SpanEmail>{session.email}</SpanEmail>
+            </UserActionDiv>
+        </UserActionContainer>
+    )
+    
+    items.push({ label: UserDetails, key: '0' })
+    items.push({ type: 'divider' })
+    items.push({ label: "Sign Out", key: 'signout' })
+
     return (
         <div>
             <Dropdown
@@ -45,11 +38,11 @@ const UserAction = () => {
                 trigger={["click"]}
             >
                 <UserActionButton>
-                    <UserAvatar size="large">Z</UserAvatar>
-                    <span style={{ padding: '0px 10px ' }}>zainmemon</span>
+                    <UserAvatar size="large">{session.username[0].toUpperCase()}</UserAvatar>
+                    <span style={{ padding: '0px 10px ' }}>{session.username}</span>
                 </UserActionButton>
             </Dropdown>
-        </div>
+        </div >
     )
 }
 export default UserAction;

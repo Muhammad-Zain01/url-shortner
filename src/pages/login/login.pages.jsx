@@ -6,10 +6,12 @@ import { Post } from '../../utils/API';
 import { Input } from '../../components/input/input.component';
 import { Button } from "../../components/button/button.component"
 import { useNavigate } from 'react-router-dom';
+import useSession from '../../hook/useSession';
 const LoginPage = () => {
     const navigate = useNavigate();
+    const Session = useSession();
     useEffect(() => {
-        let session = sessionStorage.getItem('user')
+        let session = Session.get('user')
         if (session) {
             session = JSON.parse(session)
             return navigate(`/${session.username}`);
@@ -21,7 +23,7 @@ const LoginPage = () => {
         const response = await Post('/events/login', { username, password })
         if (response.status) {
             message.success('You have Login Successfully.');
-            sessionStorage.setItem('user', JSON.stringify(response.data));
+            Session.set('user', JSON.stringify(response.data));
             navigate(`/${response.data.username}`);
         } else {
             message.error('Email or Password is not valid.');
