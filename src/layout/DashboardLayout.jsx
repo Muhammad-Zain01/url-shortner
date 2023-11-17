@@ -21,10 +21,10 @@ const DashboardLayout = ({ children }) => {
     const currentPage = {
         "dashboard": "1",
         "link": "2",
+        "add": "2",
         "analytics": "3",
         "settings": "4",
     }[route.pathname.split('/')[route.pathname.split('/').length - 1]]
-
     return (
         <Layout>
             <NavHeader bg={colorBgContainer} >
