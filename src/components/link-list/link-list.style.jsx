@@ -1,6 +1,5 @@
 import styled from "styled-components";
-import { Button, List } from "antd";
-const { Item } = List
+import { Button } from "antd";
 
 export const MainUrl = styled.a`
     font-size: 14px !important;
