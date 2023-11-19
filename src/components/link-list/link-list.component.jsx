@@ -1,11 +1,12 @@
 import { CopyFilled, EditFilled, LikeOutlined, MessageOutlined, StarOutlined } from '@ant-design/icons';
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Avatar, List, Space, Result, Button } from 'antd';
-import { MainUrl, OldUrl, TitleContainer, ActionButton, SkeletonBox } from './link-list.style';
+import { MainUrl, OldUrl, TitleContainer, ActionButton } from './link-list.style';
 import { Post } from "../../utils/API"
 import PrivateNavigate from '../../hook/usePrivateNavigate';
 import useSession from '../../hook/useSession';
 import LinkListSkeleton from './link-list-skeleton.component';
+
 const IconText = ({ icon, text }) => (
     <Space>
         {React.createElement(icon)}
@@ -22,7 +23,7 @@ const LinkList = () => {
     useEffect(() => {
         const handleRequest = async () => {
             setLoading(true)
-            const response = await Post("/events/get-urls", { user: session });
+            const response = await Post("/admin/events/get-urls", { user: session });
             if (response?.status == 1) {
                 let result = response?.data.map((item) => {
                     let avatar = item.icon
