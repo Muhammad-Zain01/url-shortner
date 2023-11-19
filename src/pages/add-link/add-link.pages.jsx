@@ -55,7 +55,7 @@ const AddLink = () => {
                 newTitle = await TitleParser(url);
             }
             if (backhalf != "") {
-                const response = await Post(`/events/verify/keyword/${backhalf}`);
+                const response = await Post(`/admin/events/keyword/${backhalf}`,{user});
                 if (response.status == 0) {
                     setkeyword({
                         hasFeedback: true,
@@ -78,7 +78,7 @@ const AddLink = () => {
                 user,
                 icon
             }
-            const response = await Post('/events/add', data);
+            const response = await Post('/admin/events/add-url', data);
             if (response?.status == 1) {
                 message.success('Link added successfully.');
                 adminRedirect('link')
