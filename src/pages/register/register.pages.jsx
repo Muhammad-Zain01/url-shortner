@@ -22,7 +22,7 @@ const RegisterPage = () => {
     })
     const onSubmit = async (value) => {
         const { username, email, password } = value
-        const response = await Post(`/events/verify/${username}`)
+        const response = await Post(`auth/verify/${username}`)
         if (response.status) {
             setUsernameConfig({ validateStatus: 'error', hasFeedback: true, help: 'Username already exists' })
             return;
@@ -33,7 +33,7 @@ const RegisterPage = () => {
             return;
         }
         setEmailConfig({ validateStatus: 'success', hasFeedback: true, help: '' })
-        const regResponse = await Post('/events/register', { username, email, password })
+        const regResponse = await Post('/auth/register', { username, email, password })
         if (regResponse.status) {
             message.success('You have Successfully Registed.');
             redirect("/login");
