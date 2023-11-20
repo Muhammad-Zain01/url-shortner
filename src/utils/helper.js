@@ -1,5 +1,5 @@
 
-import { Request } from "./API"
+import { Request } from "../API/API"
 export const TitleParser = async (url) => {
     const html = await Request("GET", `${import.meta.env.VITE_SERVER_URL}/proxy/${url}`, {}, { 'X-Requested-With': '' })
     const parser = new DOMParser();
@@ -52,3 +52,5 @@ export const validateURL = (url) => {
     }
     return url
 }
+
+export const reload = () => { window.location.reload() }
