@@ -9,7 +9,8 @@ import PrivateNavigate from "../../hook/usePrivateNavigate"
 import { verifyKeyword, addUrl } from "../../API/API.request"
 const AddLink = () => {
     const { adminNavigate } = PrivateNavigate();
-    const [title, setTitle] = useState('')
+    const [title, setTitle] = useState('');
+    const [loading, setLoading] = useState(false)
     const [url, setUrl] = useState('')
     const [urlConfig, setUrlConfig] = useState({
         hasFeedback: false,
@@ -47,6 +48,7 @@ const AddLink = () => {
     }
     const onSubmit = async (value) => {
         const { url, backhalf } = value
+        setLoading(true);
         const urlValidated = await urlValidation(url);
         if (urlValidated) {
             let newTitle = title;
@@ -80,6 +82,7 @@ const AddLink = () => {
                 adminNavigate('link')
             }
         }
+        setLoading(false);
     }
     const HandleUrl = async (event) => {
         const value = event.target.value;
@@ -130,7 +133,7 @@ const AddLink = () => {
                         </LinkContainer>
                         <Divider />
                         <Form.Item>
-                            <Button type="primary" htmlType="submit">Add</Button>
+                            <Button type="primary" htmlType="submit" loading={loading}>Add</Button>
                         </Form.Item>
                     </Form>
                 </Box>
