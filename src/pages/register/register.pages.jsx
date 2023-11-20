@@ -4,10 +4,10 @@ import { LoginBox, LoginContainer } from '../login/login.styles';
 import { UserOutlined, LockOutlined, GoogleOutlined, MailOutlined } from '@ant-design/icons';
 import { Input } from '../../components/input/input.component';
 import { Button } from '../../components/button/button.component';
-import { Post } from "../../utils/API"
 import { useNavigate } from "react-router-dom";
 import validator from 'validator'
-
+import { Link } from 'react-router-dom';
+import { VerifyUsername, RegisterUser } from '../../API/API.request';
 const RegisterPage = () => {
     const redirect = useNavigate();
     const [UsernameConfig, setUsernameConfig] = useState({
@@ -22,7 +22,7 @@ const RegisterPage = () => {
     })
     const onSubmit = async (value) => {
         const { username, email, password } = value
-        const response = await Post(`auth/verify/${username}`)
+        const response = await VerifyUsername(username);
         if (response.status) {
             setUsernameConfig({ validateStatus: 'error', hasFeedback: true, help: 'Username already exists' })
             return;
@@ -33,17 +33,15 @@ const RegisterPage = () => {
             return;
         }
         setEmailConfig({ validateStatus: 'success', hasFeedback: true, help: '' })
-        const regResponse = await Post('/auth/register', { username, email, password })
+        const regResponse = await RegisterUser({ username, email, password })
         if (regResponse.status) {
             message.success('You have Successfully Registed.');
             redirect("/login");
         }
-
     }
     return (
         <LoginContainer>
             <LoginBox >
-
                 <Form
                     name="normal_login"
                     className="login-form"
@@ -78,14 +76,8 @@ const RegisterPage = () => {
                             placeholder="Password"
                         />
                     </Form.Item>
-                    <Form.Item style={{ display: 'flex', justifyContent: 'end' }}>
-                        <a className="login-form-forgot" href="">
-                            Forgot password
-                        </a>
-                    </Form.Item>
-
                     <Form.Item>
-                        <Button size='medium' style={{ width: '100%' }} type="primary" htmlType="submit" className="login-form-button">
+                        <Button size='medium' style={{ width: '100%' }} type="primary" htmlType="submit">
                             Register
                         </Button>
                     </Form.Item>
@@ -95,6 +87,9 @@ const RegisterPage = () => {
                     <Button type='primary' icon={<GoogleOutlined />}>Register   with Google</Button>
                 </div>
             </LoginBox>
+            <div>
+                Already have an account? <Link to="/login">Log in</Link>
+            </div>
         </LoginContainer>
     )
 }
