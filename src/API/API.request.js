@@ -27,3 +27,6 @@ export const removeUrl = async (keyword) => {
 export const CaptureUser = async (data) => {
     return await Post(RequestUrls.capture, data)
 }
+export const getDashboardData = async () => {
+    return await authPost(RequestUrls.dashboardData)
+}

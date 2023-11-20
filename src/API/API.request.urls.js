@@ -1,10 +1,14 @@
 export const RequestUrls = {
+    // AUTH EVENTS
     login: '/auth/login',
-    verifyUsername: '/auth/verify',
     register: '/auth/register',
+    verifyUsername: '/auth/verify',
+    // ADMIN EVENTS
     getUrls: '/admin/events/get-urls',
     verifyKeyword: '/admin/events/keyword',
     addUrl: '/admin/events/add-url',
     removeUrl: '/admin/events/remove-url',
-    capture: '/capture'
+    dashboardData: '/admin/events/dasboard-data',
+    // GLOBAL EVENTS
+    capture: '/capture',
 }

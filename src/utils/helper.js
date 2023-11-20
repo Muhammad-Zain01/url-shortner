@@ -4,7 +4,7 @@ export const TitleParser = async (url) => {
     const html = await Request("GET", `${import.meta.env.VITE_SERVER_URL}/proxy/${url}`, {}, { 'X-Requested-With': '' })
     const parser = new DOMParser();
     const doc = parser.parseFromString(html, 'text/html');
-    const title = doc.querySelector('title').innerText;
+    const title = doc.querySelector('title')?.innerText;
     return title;
 }
 function joinUrl(baseUrl, relativePath) {

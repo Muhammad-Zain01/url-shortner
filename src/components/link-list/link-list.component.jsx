@@ -4,11 +4,12 @@ import { message, Avatar, List, Space, Result, Button } from 'antd';
 import { MainUrl, OldUrl, TitleContainer, ActionButton } from './link-list.style';
 import PrivateNavigate from '../../hook/usePrivateNavigate';
 import LinkListSkeleton from './link-list-skeleton.component';
-import { GetUrls } from '../../API/API.request';
-import { removeUrl } from '../../API/API.request';
+import { removeUrl, GetUrls } from '../../API/API.request';
+import { EyeOutlined } from '@ant-design/icons';
+import { validateURL } from '../../utils/helper';
 const IconText = ({ icon, text }) => (
     <Space>
-        {React.createElement(icon)}
+        {React.createElement(icon, { style: { fontSize: 15 } })}
         {text}
     </Space>
 );
@@ -17,23 +18,24 @@ const LinkList = () => {
     const [loading, setLoading] = useState(true);
     const { adminNavigate } = PrivateNavigate();
 
+    const new_url = (keyword) => (`${import.meta.env.VITE_SERVER_URL}/${keyword}`)
     const handleRequest = async () => {
         setLoading(true);
         const response = await GetUrls()
         if (response?.status == 1) {
-            let result = response?.data.map((item) => {
-                let avatar = item.icon
-                let new_url = `${import.meta.env.VITE_SERVER_URL}/${item.keyword}`
-                const data = {
-                    url: item.url,
-                    new_url,
-                    title: item.title,
-                    avatar,
-                    keyword: item.keyword
-                };
-                return data
-            })
-            setData(result)
+            // let result = response?.data.map((item) => {
+            //     let avatar = item.icon
+            //     let new_url = `${import.meta.env.VITE_SERVER_URL}/${item.keyword}`
+            //     const data = {
+            //         url: item.url,
+            //         new_url,
+            //         title: item.title,
+            //         avatar,
+            //         keyword: item.keyword
+            //     };
+            //     return data
+            // })
+            setData(response?.data)
             setLoading(false)
         }
     }
@@ -49,7 +51,7 @@ const LinkList = () => {
         if (response?.status) {
             message.success('Link deleted successfully');
             handleRequest();
-        }else{
+        } else {
             message.success('Link was unable to delete');
         }
     }
@@ -72,30 +74,30 @@ const LinkList = () => {
                                         style={{ background: 'white', border: '.1rem solid #dbe0eb', padding: 40, marginBottom: 20, borderRadius: '0.5rem' }}
                                         key={item.title}
                                         actions={[
-                                            <IconText icon={StarOutlined} text="156" key="list-vertical-star-o" />,
-                                            <IconText icon={LikeOutlined} text="156" key="list-vertical-like-o" />,
-                                            <IconText icon={MessageOutlined} text="2" key="list-vertical-message" />,
+                                            <IconText icon={EyeOutlined} text={item.views} key="" />,
+                                            // <IconText icon={TbHandClick} text="156" key="list-vertical-like-o" />,
+                                            // <IconText icon={TbHandClick} text="2" key="list-vertical-message" />,
                                         ]}
                                         extra={
                                             <div>
-                                                <ActionButton icon={<CopyFilled />} onClick={() => handleCopy(item.new_url)}>Copy Link</ActionButton>
+                                                <ActionButton icon={<CopyFilled />} onClick={() => handleCopy(new_url(item.keyword))}>Copy Link</ActionButton>
                                                 <ActionButton icon={<DeleteOutlined />} onClick={() => removeURL(item.keyword)}></ActionButton>
                                             </div>
                                         }
                                     >
                                         <List.Item.Meta
-                                            avatar={<Avatar style={{ border: '1px solid #abababb5', width: 40, padding: 5, height: 40 }} src={item.avatar} />}
+                                            avatar={<Avatar style={{ border: '1px solid #abababb5', width: 40, padding: 5, height: 40 }} src={item.icon} />}
                                             title={
                                                 <>
                                                     <TitleContainer>
                                                         <a>
                                                             {item.title}
                                                         </a><br />
-                                                        <MainUrl onClick={() => window.location.href = (`${item.new_url}`)}>
-                                                            {item.new_url}
+                                                        <MainUrl href={new_url(item.keyword)} target='_blank'>
+                                                            {new_url(item.keyword)}
                                                         </MainUrl><br />
-                                                        <OldUrl>
-                                                            {item.url}
+                                                        <OldUrl href={validateURL(item.url)} target='_blank'>
+                                                            {validateURL(item.url)}
                                                         </OldUrl>
                                                     </TitleContainer>
                                                 </>

@@ -14,8 +14,10 @@ import {
 import { useLocation } from 'react-router-dom';
 import { SideItems } from './NavItems';
 import UserAction from '../components/user-action/user-action.components';
+import usePrivateNavigate from '../hook/usePrivateNavigate'
 const DashboardLayout = ({ children }) => {
     const { token: { colorBgContainer, colorPrimary } } = theme.useToken();
+    const { adminNavigate } = usePrivateNavigate();
     const [collapsed, setCollapsed] = useState(false);
     const route = useLocation();
     const currentPage = {
@@ -40,7 +42,7 @@ const DashboardLayout = ({ children }) => {
                 >
                     <Arrow side={!collapsed ? 'left' : 'right'} onClick={() => setCollapsed(!collapsed)} />
                     <LinkButtonContainer>
-                        <LinkButton style={{ width: '100%' }} type='primary'>{!collapsed ? `Create new` : <PlusOutlined />}</LinkButton>
+                        <LinkButton onClick={() => {adminNavigate('link/add')}} style={{ width: '100%' }} type='primary'>{!collapsed ? `Create new` : <PlusOutlined />}</LinkButton>
                     </LinkButtonContainer>
                     <SideMenu
                         ico={colorPrimary}
