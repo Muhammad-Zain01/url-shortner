@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useLayoutEffect } from "react";
-import { Post } from "../../utils/API";
+import { Post } from "../../API/API";
 import { validateURL } from "../../utils/helper";
 const RedirectKeyword = () => {
     const { keyword } = useParams();
