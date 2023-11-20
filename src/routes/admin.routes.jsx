@@ -5,12 +5,12 @@ import Links from "../pages/links/links.pages";
 import AddLink from "../pages/add-link/add-link.pages";
 import Analytics from "../pages/analytics/analytics.pages";
 import Settings from "../pages/settings/settings.pages";
+import useAuth from "../hook/useAuth";
 const AdminRoutes = () => {
     const { User } = useParams();
-    let session = sessionStorage.getItem('user')
-    if (!session) { return <Navigate to="/login" /> }
-    session = JSON.parse(session)
-    if (session.username != User) { return <Navigate to="/login" /> }
+    const auth = useAuth()
+    if (!auth) { return <Navigate to="/login" /> }
+    if (auth.username != User) { return <Navigate to="/login" /> }
     return (
         <Routes>
             <Route path="/" element={<Navigate to="dashboard" />} />
