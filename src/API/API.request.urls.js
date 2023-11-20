@@ -5,4 +5,6 @@ export const RequestUrls = {
     getUrls: '/admin/events/get-urls',
     verifyKeyword: '/admin/events/keyword',
     addUrl: '/admin/events/add-url',
+    removeUrl: '/admin/events/remove-url',
+    capture: '/capture'
 }

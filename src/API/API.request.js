@@ -19,3 +19,11 @@ export const verifyKeyword = async (keyword) => {
 export const addUrl = async (data) => {
     return await authPost(RequestUrls.addUrl, data)
 }
+
+export const removeUrl = async (keyword) => {
+    return await authPost(`${RequestUrls.removeUrl}/${keyword}`)
+}
+
+export const CaptureUser = async (data) => {
+    return await Post(RequestUrls.capture, data)
+}

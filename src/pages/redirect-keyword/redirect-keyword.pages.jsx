@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { useLayoutEffect } from "react";
+import { CaptureUser } from "../../API/API.request";
 import { Post } from "../../API/API";
 import { validateURL } from "../../utils/helper";
 const RedirectKeyword = () => {
@@ -12,14 +12,11 @@ const RedirectKeyword = () => {
                 operatingSystem: navigator.platform,
                 screenResolution: `${window.screen.width}x${window.screen.height}`
             };
-            
-            const response = await Post(`/events/verify/keyword/${keyword}`);
-            if (response.status == 0) {
-                Post(`/capture`, { deviceInfo, keyword })
-                window.location.href = validateURL(response?.data?.url)
-            } else {
-
-            }
+            const response = await CaptureUser({ deviceInfo, keyword })
+            console.log(response);
+            // if(response.status){
+            //     window.location.href = validateURL(response?.url)
+            // }
         }
         getValue()
     })

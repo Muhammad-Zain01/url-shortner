@@ -1,10 +1,11 @@
-import { CopyFilled, EditFilled, LikeOutlined, MessageOutlined, StarOutlined } from '@ant-design/icons';
+import { CopyFilled, DeleteOutlined, LikeOutlined, MessageOutlined, StarOutlined } from '@ant-design/icons';
 import React, { useEffect, useState } from 'react';
-import { Avatar, List, Space, Result, Button } from 'antd';
+import { message, Avatar, List, Space, Result, Button } from 'antd';
 import { MainUrl, OldUrl, TitleContainer, ActionButton } from './link-list.style';
 import PrivateNavigate from '../../hook/usePrivateNavigate';
 import LinkListSkeleton from './link-list-skeleton.component';
 import { GetUrls } from '../../API/API.request';
+import { removeUrl } from '../../API/API.request';
 const IconText = ({ icon, text }) => (
     <Space>
         {React.createElement(icon)}
@@ -16,28 +17,42 @@ const LinkList = () => {
     const [loading, setLoading] = useState(true);
     const { adminNavigate } = PrivateNavigate();
 
-    useEffect(() => {
-        const handleRequest = async () => {
-            setLoading(true);
-            const response = await GetUrls()
-            if (response?.status == 1) {
-                let result = response?.data.map((item) => {
-                    let avatar = item.icon
-                    let new_url = `${import.meta.env.VITE_DOMAIN_URL}/go/${item.keyword}`
-                    const data = {
-                        url: item.url,
-                        new_url,
-                        title: item.title,
-                        avatar
-                    };
-                    return data
-                })
-                setData(result)
-                setLoading(false)
-            }
+    const handleRequest = async () => {
+        setLoading(true);
+        const response = await GetUrls()
+        if (response?.status == 1) {
+            let result = response?.data.map((item) => {
+                let avatar = item.icon
+                let new_url = `${import.meta.env.VITE_SERVER_URL}/${item.keyword}`
+                const data = {
+                    url: item.url,
+                    new_url,
+                    title: item.title,
+                    avatar,
+                    keyword: item.keyword
+                };
+                return data
+            })
+            setData(result)
+            setLoading(false)
         }
+    }
+    const handleCopy = async (url) => {
+        navigator.clipboard.writeText(url)
+        message.success('Link copied successfully');
+    }
+    useEffect(() => {
         handleRequest()
     }, [])
+    const removeURL = async (keyword) => {
+        const response = await removeUrl(keyword);
+        if (response?.status) {
+            message.success('Link deleted successfully');
+            handleRequest();
+        }else{
+            message.success('Link was unable to delete');
+        }
+    }
     return (
         <>
             {
@@ -63,8 +78,8 @@ const LinkList = () => {
                                         ]}
                                         extra={
                                             <div>
-                                                <ActionButton icon={<CopyFilled />}>Copy Link</ActionButton>
-                                                <ActionButton icon={<EditFilled />}></ActionButton>
+                                                <ActionButton icon={<CopyFilled />} onClick={() => handleCopy(item.new_url)}>Copy Link</ActionButton>
+                                                <ActionButton icon={<DeleteOutlined />} onClick={() => removeURL(item.keyword)}></ActionButton>
                                             </div>
                                         }
                                     >
