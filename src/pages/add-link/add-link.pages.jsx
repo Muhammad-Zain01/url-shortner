@@ -5,10 +5,10 @@ import { Input } from "../../components/input/input.component"
 import { Button } from "../../components/button/button.component"
 import { isValidUrl, TitleParser, IconParser } from "../../utils/helper"
 import { useState } from "react"
-import { Post } from "../../utils/API"
 import PrivateNavigate from "../../hook/usePrivateNavigate"
+import { verifyKeyword, addUrl } from "../../API/API.request"
 const AddLink = () => {
-    const adminRedirect = PrivateNavigate();
+    const { adminNavigate } = PrivateNavigate();
     const [title, setTitle] = useState('')
     const [url, setUrl] = useState('')
     const [urlConfig, setUrlConfig] = useState({
@@ -49,13 +49,10 @@ const AddLink = () => {
         const { url, backhalf } = value
         const urlValidated = await urlValidation(url);
         if (urlValidated) {
-            const user = JSON.parse(sessionStorage.getItem('user'))
             let newTitle = title;
-            if (newTitle == "") {
-                newTitle = await TitleParser(url);
-            }
+            if (newTitle == "") { newTitle = await TitleParser(url) }
             if (backhalf != "") {
-                const response = await Post(`/admin/events/keyword/${backhalf}`,{user});
+                const response = await verifyKeyword(backhalf);
                 if (response.status == 0) {
                     setkeyword({
                         hasFeedback: true,
@@ -75,13 +72,12 @@ const AddLink = () => {
                 url,
                 title: newTitle,
                 keyword: backhalf ?? "",
-                user,
                 icon
             }
-            const response = await Post('/admin/events/add-url', data);
+            const response = await addUrl(data);
             if (response?.status == 1) {
                 message.success('Link added successfully.');
-                adminRedirect('link')
+                adminNavigate('link')
             }
         }
     }
@@ -118,7 +114,7 @@ const AddLink = () => {
                         </Form.Item>
                         <LinkContainer>
                             <Form.Item label="Domain" style={{ width: '100%' }}>
-                                <Input disabled value={import.meta.env.VITE_DOMAIN_URL+'/go'} />
+                                <Input disabled value={import.meta.env.VITE_DOMAIN_URL + '/go'} />
                             </Form.Item>
                             <span style={{ margin: '0 10px' }}>/</span>
                             <Form.Item
