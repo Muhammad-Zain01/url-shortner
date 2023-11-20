@@ -2,11 +2,9 @@ import { CopyFilled, EditFilled, LikeOutlined, MessageOutlined, StarOutlined } f
 import React, { useEffect, useState } from 'react';
 import { Avatar, List, Space, Result, Button } from 'antd';
 import { MainUrl, OldUrl, TitleContainer, ActionButton } from './link-list.style';
-import { Post } from "../../utils/API"
 import PrivateNavigate from '../../hook/usePrivateNavigate';
-import useSession from '../../hook/useSession';
 import LinkListSkeleton from './link-list-skeleton.component';
-
+import { GetUrls } from '../../API/API.request';
 const IconText = ({ icon, text }) => (
     <Space>
         {React.createElement(icon)}
@@ -16,14 +14,12 @@ const IconText = ({ icon, text }) => (
 const LinkList = () => {
     const [data, setData] = useState([])
     const [loading, setLoading] = useState(true);
-    const session = JSON.parse(useSession().get('user'))
-    const navigate = PrivateNavigate();
-
+    const { adminNavigate } = PrivateNavigate();
 
     useEffect(() => {
         const handleRequest = async () => {
-            setLoading(true)
-            const response = await Post("/admin/events/get-urls", { user: session });
+            setLoading(true);
+            const response = await GetUrls()
             if (response?.status == 1) {
                 let result = response?.data.map((item) => {
                     let avatar = item.icon
@@ -99,7 +95,7 @@ const LinkList = () => {
                             status="404"
                             title="No Links Found"
                             extra={
-                                <Button type="primary" onClick={() => navigate('link/add')}>Create Link</Button>
+                                <Button type="primary" onClick={() => adminNavigate('link/add')}>Create Link</Button>
                             }
                         />
                     )
