@@ -1,78 +1,78 @@
 import React, { useEffect } from 'react';
 import { Form, Divider, message } from 'antd';
 import { LoginBox, LoginContainer } from './login.styles';
-import { UserOutlined, LockOutlined, GoogleOutlined } from '@ant-design/icons';
-import { Post } from '../../utils/API';
+import { UserOutlined, LockOutlined } from '@ant-design/icons';
+import { Login } from '../../API/API.request';
 import { Input } from '../../components/input/input.component';
 import { Button } from "../../components/button/button.component"
-import { useNavigate } from 'react-router-dom';
+import usePrivateNavigate from '../../hook/usePrivateNavigate';
 import useSession from '../../hook/useSession';
+import { Link } from 'react-router-dom';
+import GoogleButton from '../../components/google-button/google-button.components';
+import { reload } from '../../utils/helper';
 const LoginPage = () => {
-    const navigate = useNavigate();
+    const { adminNavigate } = usePrivateNavigate();
     const Session = useSession();
     useEffect(() => {
-        let session = Session.get('user')
-        if (session) {
-            session = JSON.parse(session)
-            return navigate(`/${session.username}`);
-        }
+        adminNavigate()
     }, [])
 
     const onSubmit = async (value) => {
         const { username, password } = value
-        const response = await Post('/auth/login', { username, password })
+        const response = await Login(username, password)
         if (response.status) {
             message.success('You have Login Successfully.');
             Session.set('user', JSON.stringify(response.data));
-            navigate(`/${response.data.username}`);
+            reload();
         } else {
             message.error('Email or Password is not valid.');
         }
     }
     return (
-        <LoginContainer>
-            <LoginBox >
-
-                <Form
-                    name="normal_login"
-                    className="login-form"
-                    initialValues={{ remember: true }}
-                    onFinish={onSubmit}
-                >
-                    <Form.Item
-                        name="username"
-                        rules={[{ required: true, message: 'Please input your Username!' }]}
+        <>
+            <LoginContainer>
+                <LoginBox >
+                    <Form
+                        name="normal_login"
+                        className="login-form"
+                        initialValues={{ remember: true }}
+                        onFinish={onSubmit}
                     >
-                        <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" />
-                    </Form.Item>
-                    <Form.Item
-                        name="password"
-                        rules={[{ required: true, message: 'Please input your Password!' }]}
-                    >
-                        <Input
-                            prefix={<LockOutlined className="site-form-item-icon" />}
-                            type="password"
-                            placeholder="Password"
-                        />
-                    </Form.Item>
-                    <Form.Item style={{ display: 'flex', justifyContent: 'end' }}>
-                        <a className="login-form-forgot" href="">
-                            Forgot password
-                        </a>
-                    </Form.Item>
-
-                    <Form.Item>
-                        <Button size='medium' style={{ width: '100%' }} type="primary" htmlType="submit" className="login-form-button">
-                            Log in
-                        </Button>
-                    </Form.Item>
-                </Form>
-                <Divider />
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', width: '100%' }}>
-                    <Button type='primary' icon={<GoogleOutlined />}>Google</Button>
+                        <Form.Item
+                            name="username"
+                            rules={[{ required: true, message: 'Please input your Username!' }]}
+                        >
+                            <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" />
+                        </Form.Item>
+                        <Form.Item
+                            name="password"
+                            rules={[{ required: true, message: 'Please input your Password!' }]}
+                        >
+                            <Input
+                                prefix={<LockOutlined className="site-form-item-icon" />}
+                                type="password"
+                                placeholder="Password"
+                            />
+                        </Form.Item>
+                        <Form.Item style={{ display: 'flex', justifyContent: 'end' }}>
+                            <a className="login-form-forgot" href="">
+                                Forgot password
+                            </a>
+                        </Form.Item>
+                        <Form.Item>
+                            <Button size='medium' style={{ width: '100%' }} type="primary" htmlType="submit">
+                                Log in
+                            </Button>
+                        </Form.Item>
+                    </Form>
+                    <Divider />
+                    <GoogleButton>Login With Google</GoogleButton>
+                </LoginBox>
+                <div>
+                    Don't have an account? <Link to="/register">Sign up</Link>
                 </div>
-            </LoginBox>
-        </LoginContainer>
+            </LoginContainer>
+        </>
     )
 }
 export default LoginPage;
