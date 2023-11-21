@@ -1,10 +1,10 @@
 import DashboardLayout from "../../layout/DashboardLayout"
-import UsageCard from "../../components/usage-card/usage-card.component"
+import DashboardCards from "../../components/usage-card/dashboard-card.component"
 const Dashboard = () => {
     return (
         <DashboardLayout>
-            <UsageCard />
-        </DashboardLayout>
+            <DashboardCards />
+        </DashboardLayout >
     )
 }
 export default Dashboard
