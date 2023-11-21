@@ -4,8 +4,8 @@ import { Card } from 'antd'
 const TimeseriesChart = ({ data }) => {
     const options = {
         title: {
-            text: 'Clicks',
-            align: 'left'
+            text: '',
+            align: ''
         },
         yAxis: {
             title: {
@@ -18,18 +18,18 @@ const TimeseriesChart = ({ data }) => {
 
         series: [
             {
-                name: 'Clicks',
+                name: 'Views',
                 data: data.data
             }
         ],
     }
     return (
-        <Card style={{ padding: 20 }}>
+        <div style={{padding: 20}}>
             <HighchartsReact
                 highcharts={Highcharts}
                 options={options}
             />
-        </Card>
+        </div>
     )
 }
 
