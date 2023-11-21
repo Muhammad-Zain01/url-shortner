@@ -9,6 +9,7 @@ highchartsMap(Highcharts);
 const CountryChart = ({ data }) => {
     const { token: { colorPrimary } } = theme.useToken();
     const mapOptions = {
+        title: '',
         colorAxis: {
             min: 0,
             minColor: colorPrimary + '38',
@@ -45,13 +46,13 @@ const CountryChart = ({ data }) => {
     };
 
     return (
-        <Card>
+        <div style={{ padding: 20 }}>
             <HighchartsReact
                 constructorType={'mapChart'}
                 highcharts={Highcharts}
                 options={mapOptions}
             />
-        </Card>
+        </div>
     )
 }
 
