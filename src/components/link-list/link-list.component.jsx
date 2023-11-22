@@ -1,7 +1,7 @@
-import { CopyFilled, DeleteOutlined, LikeOutlined, MessageOutlined, StarOutlined } from '@ant-design/icons';
+import { CopyFilled, DeleteOutlined } from '@ant-design/icons';
 import React, { useEffect, useState } from 'react';
 import { message, Avatar, List, Space, Result, Button } from 'antd';
-import { MainUrl, OldUrl, TitleContainer, ActionButton } from './link-list.style';
+import { MainUrl, OldUrl, TitleContainer, ActionButton, TitleMain } from './link-list.style';
 import PrivateNavigate from '../../hook/usePrivateNavigate';
 import LinkListSkeleton from './link-list-skeleton.component';
 import { removeUrl, GetUrls } from '../../API/API.request';
@@ -90,12 +90,12 @@ const LinkList = () => {
                                             title={
                                                 <>
                                                     <TitleContainer>
-                                                        <a>
-                                                            {item.title}
-                                                        </a><br />
+                                                        <TitleMain>
+                                                            <a>{item.title}</a>
+                                                        </TitleMain>
                                                         <MainUrl href={new_url(item.keyword)} target='_blank'>
                                                             {new_url(item.keyword)}
-                                                        </MainUrl><br />
+                                                        </MainUrl> <br />
                                                         <OldUrl href={validateURL(item.url)} target='_blank'>
                                                             {validateURL(item.url)}
                                                         </OldUrl>
