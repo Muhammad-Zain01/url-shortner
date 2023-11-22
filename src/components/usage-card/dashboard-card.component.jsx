@@ -36,12 +36,15 @@ const DashboardCards = () => {
                 timeSeries[dt] ? timeSeries[dt]++ : timeSeries[dt] = 1
                 tempCountryData[countryCode] ? tempCountryData[countryCode]++ : tempCountryData[countryCode] = 1
             })
+            let TimeValues = { category: Object.keys(timeSeries), data: Object.values(timeSeries) };
+            TimeValues = TimeValues.category.map((dt, _idx) => ({ date: dt, value: TimeValues.data[_idx] }))
+            TimeValues.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+            setData({
+                category: TimeValues.map(item => item.date),
+                data: TimeValues.map(item => item.value)
+            })
             setLinkCreated(response?.data?.urls_data.length)
             setTotalViews(response?.data?.webdata.length)
-            setData({
-                category: Object.keys(timeSeries),
-                data: Object.values(timeSeries)
-            })
             setCountryData(Object.keys(tempCountryData).map(key => [key, tempCountryData[key]]))
         }
         setLoading(false)
