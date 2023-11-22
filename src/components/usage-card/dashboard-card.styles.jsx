@@ -10,10 +10,23 @@ export const CardContainer = styled.div`
     justify-content: space-between;
     width: 100%;
     margin-bottom: 15px;
+
+    @media only screen and (max-width: 915px) {
+        &{
+            flex-direction: column;
+            margin-bottom: 0px;
+        }    
+    }
 `
 
 export const DashboardCard = styled(Card)`
     width: ${(props) => props.width}%;
+    @media only screen and (max-width: 915px) {
+        &{
+            width: 100%;
+            margin-bottom: 10px;
+        }    
+    }
 `
 export const ChartSkeletonContainer = styled.div`
     width: 100%;
