@@ -20,6 +20,11 @@ export const TitleContainer = styled.div`
         text-decoration: underline;
     }
 `
+export const TitleMain = styled.div`
+    overflow: hidden;     
+    white-space: nowrap;  
+    text-overflow: ellipsis; 
+`
 
 export const ActionButton = styled(Button)`
     border-radius: 0.2rem;
