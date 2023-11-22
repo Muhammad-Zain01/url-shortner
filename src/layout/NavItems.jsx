@@ -12,11 +12,6 @@ export const SideItems = [
         icon: <LinkOutlined />
     },
     {
-        key: 3,
-        label: <AdminLink to={`/analytics`}>Analytics</AdminLink>,
-        icon: <BarChartOutlined />
-    },
-    {
         key: 4,
         label: <AdminLink to={`/settings`}>Settings</AdminLink>,
         icon: <SettingOutlined />
