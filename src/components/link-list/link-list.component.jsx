@@ -23,18 +23,6 @@ const LinkList = () => {
         setLoading(true);
         const response = await GetUrls()
         if (response?.status == 1) {
-            // let result = response?.data.map((item) => {
-            //     let avatar = item.icon
-            //     let new_url = `${import.meta.env.VITE_SERVER_URL}/${item.keyword}`
-            //     const data = {
-            //         url: item.url,
-            //         new_url,
-            //         title: item.title,
-            //         avatar,
-            //         keyword: item.keyword
-            //     };
-            //     return data
-            // })
             setData(response?.data)
             setLoading(false)
         }
