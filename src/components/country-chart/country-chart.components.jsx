@@ -10,10 +10,16 @@ const CountryChart = ({ data }) => {
     const { token: { colorPrimary } } = theme.useToken();
     const mapOptions = {
         title: '',
+
         colorAxis: {
             min: 0,
             minColor: colorPrimary + '38',
             maxColor: colorPrimary,
+            stops: [
+                [0, colorPrimary + '38'],
+                [0.5, colorPrimary + '99'],
+                [1, colorPrimary]
+            ]
         },
 
         chart: {
@@ -30,15 +36,10 @@ const CountryChart = ({ data }) => {
         series: [
             {
                 name: "Views",
-                states: {
-                    hover: {
-                        color: colorPrimary
-                    }
-                },
                 dataLabels: {
                     enabled: false,
                     format: "{point.name}"
-                },
+                }, 
                 allAreas: true,
                 data: data
             }
