@@ -9,6 +9,8 @@ export const RequestUrls = {
     addUrl: '/admin/events/add-url',
     removeUrl: '/admin/events/remove-url',
     dashboardData: '/admin/events/dasboard-data',
+    getDisplayName: '/admin/events/get-display-name',
+    setDisplayName: '/admin/events/set-display-name',
     // GLOBAL EVENTS
     capture: '/capture',
 }
