@@ -3,10 +3,8 @@ import { useReducer } from "react";
 
 const INITIAL_STATE = {
     username: "",
-    email: "",
     displayName: "",
     email: "",
-    password: "",
 }
 const DEFAULT_VALUES = {
     ...INITIAL_STATE,
@@ -26,7 +24,7 @@ const UserReducer = (state, action) => {
 export const UserProvider = ({ children }) => {
     const [state, dispatch] = useReducer(UserReducer, INITIAL_STATE)
     const setUser = (data) => dispatch({ type: "SET_USER", payload: data })
-    const value = { state, setUser };
+    const value = { ...state, setUser };
     return (
         <UserContext.Provider value={value} >
             {children}
