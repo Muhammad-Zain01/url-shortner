@@ -10,7 +10,7 @@ const DisplayName = ({ name, setName }) => {
     }
     const onSubmit = async () => {
         const response = await updateDisplayName({ name })
-        
+        if (response?.status) { message.success('Display name updated successfully') }
     }
     return (
         <DisplayContainer>
