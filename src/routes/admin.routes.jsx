@@ -5,8 +5,24 @@ import Links from "../pages/links/links.pages";
 import AddLink from "../pages/add-link/add-link.pages";
 import Settings from "../pages/settings/settings.pages";
 import useAuth from "../hook/useAuth";
-
+import { useUser } from "../hook/useUser";
+import { useEffect } from "react";
+import { getUser } from "../API/API.request";
 const AdminRoutes = () => {
+    const { setUser } = useUser();
+    useEffect(() => {
+        const fetchUserDetails = async () => {
+            const response = await getUser()
+            if(response?.status){
+                setUser({
+                    username: response?.data?.username,
+                    email: response?.data?.email,
+                    displayName: response?.data?.displayName
+                })
+            }
+        }
+        fetchUserDetails()
+    }, [])
     const { User } = useParams();
     const auth = useAuth()
     if (!auth) { return <Navigate to="/login" /> }
