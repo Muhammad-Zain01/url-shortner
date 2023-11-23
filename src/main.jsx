@@ -9,7 +9,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <BrowserRouter>
       <Suspense>
-        <ConfigProvider theme={{ token: { colorPrimary: '#0766AD', borderRadius: 2 } }}>
+        <ConfigProvider theme={{ token: { colorPrimary: '#0766AD', borderRadius: 4 } }}>
           <App />
         </ConfigProvider>
       </Suspense>
