@@ -4,6 +4,7 @@ import { Input } from '../input/input.component'
 import { DisplayContainer } from "./display-name.styles";
 import { Button } from "../button/button.component";
 import { updateDisplayName } from "../../API/API.request";
+import { reload } from "../../utils/helper";
 const DisplayName = ({ name, setName }) => {
     const handleNameChange = (event) => {
         setName(event.target.value);
@@ -11,6 +12,7 @@ const DisplayName = ({ name, setName }) => {
     const onSubmit = async () => {
         const response = await updateDisplayName({ name })
         if (response?.status) { message.success('Display name updated successfully') }
+        reload();
     }
     return (
         <DisplayContainer>
