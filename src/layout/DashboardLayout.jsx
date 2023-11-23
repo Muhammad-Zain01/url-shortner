@@ -42,7 +42,7 @@ const DashboardLayout = ({ children }) => {
                 >
                     <Arrow side={!collapsed ? 'left' : 'right'} onClick={() => setCollapsed(!collapsed)} />
                     <LinkButtonContainer>
-                        <LinkButton onClick={() => {adminNavigate('link/add')}} style={{ width: '100%' }} type='primary'>{!collapsed ? `Create new` : <PlusOutlined />}</LinkButton>
+                        <LinkButton onClick={() => { adminNavigate('link/add') }} style={{ width: '100%' }} type='primary'>{!collapsed ? `Create new` : <PlusOutlined />}</LinkButton>
                     </LinkButtonContainer>
                     <SideMenu
                         ico={colorPrimary}
