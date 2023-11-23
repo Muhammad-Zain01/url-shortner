@@ -11,6 +11,7 @@ export const RequestUrls = {
     dashboardData: '/admin/events/dasboard-data',
     getDisplayName: '/admin/events/get-display-name',
     setDisplayName: '/admin/events/set-display-name',
+    getUser: '/admin/events/get-user',
     // GLOBAL EVENTS
     capture: '/capture',
 }
