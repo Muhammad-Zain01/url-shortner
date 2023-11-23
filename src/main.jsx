@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client'
 import App from './App'
 import { BrowserRouter } from 'react-router-dom'
 import { ConfigProvider } from 'antd'
+import { UserProvider } from './context/user.context'
 import './index.css'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
@@ -10,7 +11,9 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     <BrowserRouter>
       <Suspense>
         <ConfigProvider theme={{ token: { colorPrimary: '#0766AD', borderRadius: 4 } }}>
-          <App />
+          <UserProvider>
+            <App />
+          </UserProvider>
         </ConfigProvider>
       </Suspense>
     </BrowserRouter>
