@@ -9,7 +9,7 @@ const Settings = () => {
     const fetchSettings = async () => {
         const response = await getDisplayName();
         if(response?.status){
-            setDisplayName(response?.data?.displayName);
+            setDisplayName(response?.data);
         }
     }
     useEffect(() => {
