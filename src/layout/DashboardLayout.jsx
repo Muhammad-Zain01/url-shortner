@@ -9,7 +9,8 @@ import {
     SideMenuContainer,
     LinkButtonContainer,
     LinkButton,
-    Arrow
+    Arrow,
+    LogoWrapper
 } from './Layout.style';
 import { useLocation } from 'react-router-dom';
 import { SideItems } from './NavItems';
@@ -41,6 +42,9 @@ const DashboardLayout = ({ children }) => {
                     onBreakpoint={(broken) => setCollapsed(broken)}
                 >
                     <Arrow side={!collapsed ? 'left' : 'right'} onClick={() => setCollapsed(!collapsed)} />
+                    <LogoWrapper>
+                        <img src={collapsed ? "/icon.png" : "/logo.png"} style={{transition: '0.1s ease-in'}} width={collapsed ? 40 : 160} />
+                    </LogoWrapper>
                     <LinkButtonContainer>
                         <LinkButton onClick={() => { adminNavigate('link/add') }} style={{ width: '100%' }} type='primary'>{!collapsed ? `Create new` : <PlusOutlined />}</LinkButton>
                     </LinkButtonContainer>
@@ -50,6 +54,7 @@ const DashboardLayout = ({ children }) => {
                         defaultSelectedKeys={currentPage}
                         items={SideItems}
                     />
+
                 </SideMenuContainer>
                 <LayoutContentContainer>
                     <LayoutContent>

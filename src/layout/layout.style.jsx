@@ -64,10 +64,11 @@ export const LinkButton = styled(Button)`
 `
 export const LinkButtonContainer = styled.div`
     display: flex;
-    margin-top: 80px;
+    margin-top: 20px;
     width: 100%;
     padding: 10px 10px;
 `
+
 export const Arrow = styled(LeftOutlined)`
     padding: 10px;
     border: .1rem solid #dbe0eb;
@@ -82,4 +83,10 @@ export const Arrow = styled(LeftOutlined)`
     transform:rotate(${props => props.side == 'right' && "180deg"});
     transition: 0.2s ease all;
     
+`
+
+export const LogoWrapper = styled.div`
+    display: flex;
+    margin-top: 40px;
+    justify-content: center;
 `
