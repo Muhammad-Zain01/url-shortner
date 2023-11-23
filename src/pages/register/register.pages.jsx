@@ -77,14 +77,14 @@ const RegisterPage = () => {
                         />
                     </Form.Item>
                     <Form.Item>
-                        <Button size='medium' style={{ width: '100%' }} type="primary" htmlType="submit">
+                        <Button type="primary" htmlType="submit">
                             Register
                         </Button>
                     </Form.Item>
                 </Form>
                 <Divider />
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', width: '100%' }}>
-                    <Button type='primary' icon={<GoogleOutlined />}>Register   with Google</Button>
+                    <Button type='primary' icon={<GoogleOutlined />}>Register with Google</Button>
                 </div>
             </LoginBox>
             <div>
