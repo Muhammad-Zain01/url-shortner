@@ -9,13 +9,14 @@ import {
     SideMenuContainer,
     LinkButtonContainer,
     LinkButton,
-    Arrow,
-    LogoWrapper
+    Arrow
 } from './Layout.style';
+
 import { useLocation } from 'react-router-dom';
 import { SideItems } from './NavItems';
 import UserAction from '../components/user-action/user-action.components';
 import usePrivateNavigate from '../hook/usePrivateNavigate'
+import Logo  from '../components/logo/logo.component';
 const DashboardLayout = ({ children }) => {
     const { token: { colorBgContainer, colorPrimary } } = theme.useToken();
     const { adminNavigate } = usePrivateNavigate();
@@ -41,10 +42,9 @@ const DashboardLayout = ({ children }) => {
                     width={250}
                     onBreakpoint={(broken) => setCollapsed(broken)}
                 >
+                    <Logo collapsed={collapsed} />
                     <Arrow side={!collapsed ? 'left' : 'right'} onClick={() => setCollapsed(!collapsed)} />
-                    <LogoWrapper>
-                        <img src={collapsed ? "/icon.png" : "/logo.png"} style={{transition: '0.1s ease-in'}} width={collapsed ? 40 : 160} />
-                    </LogoWrapper>
+                    
                     <LinkButtonContainer>
                         <LinkButton onClick={() => { adminNavigate('link/add') }} style={{ width: '100%' }} type='primary'>{!collapsed ? `Create new` : <PlusOutlined />}</LinkButton>
                     </LinkButtonContainer>
