@@ -84,9 +84,3 @@ export const Arrow = styled(LeftOutlined)`
     transition: 0.2s ease all;
     
 `
-
-export const LogoWrapper = styled.div`
-    display: flex;
-    margin-top: 40px;
-    justify-content: center;
-`
