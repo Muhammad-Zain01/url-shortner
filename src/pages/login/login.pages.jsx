@@ -10,6 +10,7 @@ import useSession from '../../hook/useSession';
 import { Link } from 'react-router-dom';
 import GoogleButton from '../../components/google-button/google-button.components';
 import { reload } from '../../utils/helper';
+import Logo from '../../components/logo/logo.component';
 const LoginPage = () => {
     const { adminNavigate } = usePrivateNavigate();
     const Session = useSession();
@@ -31,42 +32,45 @@ const LoginPage = () => {
     return (
         <>
             <LoginContainer>
+                    <div style={{marginBottom: 50}}>
+                        <Logo />
+                    </div>
                 <LoginBox >
-                    <Form
-                        name="normal_login"
-                        className="login-form"
-                        initialValues={{ remember: true }}
-                        onFinish={onSubmit}
-                    >
-                        <Form.Item
-                            name="username"
-                            rules={[{ required: true, message: 'Please input your Username!' }]}
+                        <Form
+                            name="normal_login"
+                            className="login-form"
+                            initialValues={{ remember: true }}
+                            onFinish={onSubmit}
                         >
-                            <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" />
-                        </Form.Item>
-                        <Form.Item
-                            name="password"
-                            rules={[{ required: true, message: 'Please input your Password!' }]}
-                        >
-                            <Input
-                                prefix={<LockOutlined className="site-form-item-icon" />}
-                                type="password"
-                                placeholder="Password"
-                            />
-                        </Form.Item>
-                        <Form.Item style={{ display: 'flex', justifyContent: 'end' }}>
-                            <a className="login-form-forgot" href="">
-                                Forgot password
-                            </a>
-                        </Form.Item>
-                        <Form.Item>
-                            <Button size='medium' style={{ width: '100%' }} type="primary" htmlType="submit">
-                                Log in
-                            </Button>
-                        </Form.Item>
-                    </Form>
-                    <Divider />
-                    <GoogleButton>Login With Google</GoogleButton>
+                            <Form.Item
+                                name="username"
+                                rules={[{ required: true, message: 'Please input your Username!' }]}
+                            >
+                                <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" />
+                            </Form.Item>
+                            <Form.Item
+                                name="password"
+                                rules={[{ required: true, message: 'Please input your Password!' }]}
+                            >
+                                <Input
+                                    prefix={<LockOutlined className="site-form-item-icon" />}
+                                    type="password"
+                                    placeholder="Password"
+                                />
+                            </Form.Item>
+                            <Form.Item style={{ display: 'flex', justifyContent: 'end' }}>
+                                <a className="login-form-forgot" href="">
+                                    Forgot password
+                                </a>
+                            </Form.Item>
+                            <Form.Item>
+                                <Button size='medium' style={{ width: '100%' }} type="primary" htmlType="submit">
+                                    Log in
+                                </Button>
+                            </Form.Item>
+                        </Form>
+                        <Divider />
+                        <GoogleButton>Login With Google</GoogleButton>
                 </LoginBox>
                 <div>
                     Don't have an account? <Link to="/register">Sign up</Link>
