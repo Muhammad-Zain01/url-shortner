@@ -3,10 +3,10 @@
 <img src="https://raw.githubusercontent.com/Muhammad-Zain01/url-shortner/main/public/logo.png" style="width: 320px;" />
 <h3 align="center">URL Shortner (Client)</h3>
 <div>
-    <a href="https://github.com/muhammad-zain01/url-shortner-backend/graphs/contributors"><img src="https://img.shields.io/github/contributors/muhammad-zain01/url-shortner-backend.svg?style=for-the-badge" /></a>
-    <a href="https://github.com/muhammad-zain01/url-shortner-backend/network/members"><img src="https://img.shields.io/github/forks/muhammad-zain01/url-shortner-backend.svg?style=for-the-badge" /></a>
-    <a href="https://github.com/muhammad-zain01/url-shortner-backend/stargazers"><img src="https://img.shields.io/github/stars/muhammad-zain01/url-shortner-backend.svg?style=for-the-badge" /></a>
-    <a href="https://github.com/muhammad-zain01/url-shortner-backend/issues"><img src="https://img.shields.io/github/issues/muhammad-zain01/url-shortner-backend.svg?style=for-the-badge" /></a>
+    <a href="https://github.com/muhammad-zain01/url-shortner/graphs/contributors"><img src="https://img.shields.io/github/contributors/muhammad-zain01/url-shortner.svg?style=for-the-badge" /></a>
+    <a href="https://github.com/muhammad-zain01/url-shortner/network/members"><img src="https://img.shields.io/github/forks/muhammad-zain01/url-shortner.svg?style=for-the-badge" /></a>
+    <a href="https://github.com/muhammad-zain01/url-shortner/stargazers"><img src="https://img.shields.io/github/stars/muhammad-zain01/url-shortner.svg?style=for-the-badge" /></a>
+    <a href="https://github.com/muhammad-zain01/url-shortner/issues"><img src="https://img.shields.io/github/issues/muhammad-zain01/url-shortner.svg?style=for-the-badge" /></a>
 </div>
 
   <p align="center" style="text-align: justify;">
