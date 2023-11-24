@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import validator from 'validator'
 import { Link } from 'react-router-dom';
 import { VerifyUsername, RegisterUser } from '../../API/API.request';
+import Logo from '../../components/logo/logo.component';
 const RegisterPage = () => {
     const redirect = useNavigate();
     const [UsernameConfig, setUsernameConfig] = useState({
@@ -41,6 +42,9 @@ const RegisterPage = () => {
     }
     return (
         <LoginContainer>
+            <div style={{ marginBottom: 50 }}>
+                <Logo />
+            </div>
             <LoginBox >
                 <Form
                     name="normal_login"
