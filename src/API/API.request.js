@@ -12,3 +12,4 @@ export const getDashboardData = async () => await authPost(RequestUrls.dashboard
 export const getDisplayName = async () => await authPost(RequestUrls.getDisplayName)
 export const updateDisplayName = async (data) => await authPost(RequestUrls.setDisplayName, data)
 export const getUser = async () => await authPost(RequestUrls.getUser)
+export const updatePassword = async (data) => await authPost(RequestUrls.updatePassword, data)
