@@ -12,6 +12,7 @@ export const RequestUrls = {
     getDisplayName: '/admin/events/get-display-name',
     setDisplayName: '/admin/events/set-display-name',
     getUser: '/admin/events/get-user',
+    updatePassword: '/admin/events/update-password',
     // GLOBAL EVENTS
     capture: '/capture',
 }
