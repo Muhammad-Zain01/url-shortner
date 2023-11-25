@@ -87,9 +87,6 @@ const RegisterPage = () => {
                     </Form.Item>
                 </Form>
                 <Divider />
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', width: '100%' }}>
-                    <Button type='primary' icon={<GoogleOutlined />}>Register with Google</Button>
-                </div>
             </LoginBox>
             <div>
                 Already have an account? <Link to="/login">Log in</Link>
