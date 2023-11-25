@@ -10,7 +10,7 @@ import {
     LinkButtonContainer,
     LinkButton,
     Arrow
-} from './Layout.style';
+} from './layout.style';
 
 import { useLocation } from 'react-router-dom';
 import { SideItems } from './NavItems';
