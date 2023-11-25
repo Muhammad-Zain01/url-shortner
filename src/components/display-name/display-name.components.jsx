@@ -5,14 +5,19 @@ import { DisplayContainer } from "./display-name.styles";
 import { Button } from "../button/button.component";
 import { updateDisplayName } from "../../API/API.request";
 import { reload } from "../../utils/helper";
+import { useUser } from "../../hook/useUser";
+
 const DisplayName = ({ name, setName }) => {
+    const { setUser } = useUser();
     const handleNameChange = (event) => {
         setName(event.target.value);
     }
     const onSubmit = async () => {
         const response = await updateDisplayName({ name })
-        if (response?.status) { message.success('Display name updated successfully') }
-        reload();
+        if (response?.status) {
+            message.success('Display name updated successfully')
+            setUser({ displayName: name })
+        }
     }
     return (
         <DisplayContainer>
