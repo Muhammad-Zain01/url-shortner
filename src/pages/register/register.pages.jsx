@@ -24,7 +24,7 @@ const RegisterPage = () => {
     const onSubmit = async (value) => {
         const { username, email, password } = value
         const response = await VerifyUsername(username);
-        if (response.status) {
+        if (!response.status) {
             setUsernameConfig({ validateStatus: 'error', hasFeedback: true, help: 'Username already exists' })
             return;
         }
