@@ -4,7 +4,7 @@ import TimeseriesChart from "../timeseries-chart/timeseries-chart.components";
 import CountryChart from "../country-chart/country-chart.components";
 import CountUp from 'react-countup';
 import { Statistic, Skeleton, Space } from "antd";
-import { DotChartOutlined } from "@ant-design/icons";
+import { CodeSandboxCircleFilled, DotChartOutlined } from "@ant-design/icons";
 import {
     DashboardCardContainer,
     CardContainer,
@@ -28,9 +28,10 @@ const DashboardCards = () => {
         const timeSeries = {}
         const tempCountryData = {}
         if (response?.status) {
-            response?.data?.webdata.map(views => {
+            
+            response?.data[0].webdata && response?.data[0].webdata.map(views => {
                 const location = views?.data?.location;
-                const countryCode = location?.countryCode.toLowerCase();
+                const countryCode = location?.countryCode?.toLowerCase();
                 const date = new Date(views.time);
                 const dt = `${date.toLocaleDateString('en-US', { month: 'short' })} ${date.getDate()}`
                 timeSeries[dt] ? timeSeries[dt]++ : timeSeries[dt] = 1
@@ -43,8 +44,8 @@ const DashboardCards = () => {
                 category: TimeValues.map(item => item.date),
                 data: TimeValues.map(item => item.value)
             })
-            setLinkCreated(response?.data?.urls_data.length)
-            setTotalViews(response?.data?.webdata.length)
+            setLinkCreated(response?.data[0].urls_data.length)
+            setTotalViews(response?.data[0].webdata.length)
             setCountryData(Object.keys(tempCountryData).map(key => [key, tempCountryData[key]]))
         }
         setLoading(false)
