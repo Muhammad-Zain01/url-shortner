@@ -55,7 +55,7 @@ const AddLink = () => {
             if (newTitle == "") { newTitle = await TitleParser(url) }
             if (backhalf != "") {
                 const response = await verifyKeyword(backhalf);
-                if (response.status == 0) {
+                if (response.status == 1) {
                     setkeyword({
                         hasFeedback: true,
                         validateStatus: "error",
