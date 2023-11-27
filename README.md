@@ -15,19 +15,17 @@
     <a href="https://github.com/muhammad-zain01/url-shortner"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://muhammad-zain01.github.io/url-shortner/">View Demo</a>
+    <a href="https://url-shortr.vercel.app/">View Demo</a>
     -
-    <a href="https://github.com/Muhammad-Zain01/url-shortner">Backend Repo</a>
-    -
-    <a href="https://github.com/muhammad-zain01/url-shortner/issues">Request Feature</a>
+    <a href="https://github.com/Muhammad-Zain01/url-shortner-backend/">Backend Repo</a>
     <br />
     <br />
     <br />
 </div>
 
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
-[![Product Name Screen Shot][product-screenshot2]](https://example.com)
+[![Product Name Screen Shot][product-screenshot]](https://url-shortr.vercel.app/)
+[![Product Name Screen Shot][product-screenshot2]](https://url-shortr.vercel.app/)
 
 ### Built With
 
