@@ -1,6 +1,6 @@
 
 import { LogoWrapper, LogoImg } from "./logo.styles"
-const Logo = ({collapsed}) => {
+const Logo = ({ collapsed }) => {
     return (
         <LogoWrapper>
             <LogoImg src={collapsed ? "/icon.png" : "/logo.png"} width={collapsed ? 40 : 160} />
