@@ -70,7 +70,7 @@ const LoginPage = () => {
                             </Form.Item>
                         </Form>
                         <Divider />
-                        <GoogleButton>Login With Google</GoogleButton>
+                        {/* <GoogleButton>Login With Google</GoogleButton> */}
                 </LoginBox>
                 <div>
                     Don't have an account? <Link to="/register">Sign up</Link>
