@@ -26,7 +26,7 @@
 </div>
 
 
-[![https://github.com/Muhammad-Zain01/url-shortner/blob/main/preview.png][product-screenshot]](https://example.com)
+[![preview]]([https://example.com](https://github.com/Muhammad-Zain01/url-shortner/blob/main/preview.png))
 
 ### Built With
 
