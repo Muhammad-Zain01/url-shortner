@@ -52,9 +52,16 @@ This is an example of how to list things you need to use the software and how to
    ```
 2. Install NPM packages
    ```sh
-   npm install
+    cd url-shortner
+    npm install
    ```
-3. For Starting Server
+3. Creating .env
+   ```sh
+    VITE_SERVER_URL=<BACKEND_URL>
+    VITE_DOMAIN_URL=<FRONTEND_URL>
+   ```
+
+4. For Starting Server
    ```sh
    npm run dev
    ```
