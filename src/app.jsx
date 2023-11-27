@@ -6,6 +6,7 @@ const AdminRoutes = lazy(() => import('./routes/admin.routes.jsx'));
 const LoginPage = lazy(() => import('./pages/login/login.pages.jsx'));
 const RegisterPage = lazy(() => import('./pages/register/register.pages.jsx'));
 const NotFound = lazy(() => import('./pages/not-found/not-found.pages.jsx'));
+const HomePage = lazy(() => import('./pages/home-page/home-page.pages.jsx'));
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Route path='/:User/*' element={<AdminRoutes />} />
         <Route path='/register' element={<RegisterPage />} />
         <Route path='/login' element={<LoginPage />} />
+        <Route path='/' element={<HomePage />} />
       </Routes>
     </MainAppContainer>
   )
