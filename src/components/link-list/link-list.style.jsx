@@ -1,5 +1,6 @@
 import styled from "styled-components";
-import { Button } from "antd";
+import { Button, List } from "antd";
+const { Item } = List;
 
 export const MainUrl = styled.a`
     font-size: 14px !important;
@@ -20,9 +21,10 @@ export const TitleContainer = styled.div`
         text-decoration: underline;
     }
 `
-export const TitleMain = styled.div`
+export const TextWrapper = styled.div`
     overflow: hidden;     
-    white-space: nowrap;  
+    white-space: nowrap;
+    margin-bottom: 2px;  
     text-overflow: ellipsis; 
 `
 
@@ -40,4 +42,22 @@ export const SkeletonBox = styled.div`
     display: flex;
     padding: 40px 20px;
     border: 1px solid #e9e9e9;
+    
+`
+
+export const ListItem = styled(Item)`
+    background: white;
+    border: .1rem solid #dbe0eb;
+    padding: 40px !important;
+    margin-bottom: 20px;
+    border-radius: 0.5rem;
+    @media only screen and (max-width: 545px) {
+        flex-direction: column !important;
+    }
+`
+export const ButtonWrapperHead = styled.div`
+    @media only screen and (max-width: 545px) {
+        text-align: end;
+        margin-bottom: 10px;
+    }
 `
