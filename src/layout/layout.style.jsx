@@ -50,6 +50,9 @@ export const LayoutContent = styled(Content)`
     margin-top: 65px;
     min-height: 280px;
     background-color: ${props => props.bg};
+    @media only screen and (max-width: 660px) {
+        padding: 0px !important;
+    }
 `
 export const LayoutContentContainer = styled(Content)`
     padding: 24px;
