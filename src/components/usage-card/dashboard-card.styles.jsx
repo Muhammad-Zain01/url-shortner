@@ -34,12 +34,16 @@ export const ChartSkeletonContainer = styled.div`
     .ant-skeleton{
         width: 100% !important;
     }
+    @media only screen and (max-width: 915px) {
+        display: block !important;
+    }
     `
 export const ChartSkeleton = styled(Node)`
    width: 100% !important;
    display: flex;
    height: 400px !important;
    margin: 15px;
+   
 `
 export const CardSkeletonContainer = styled.div`
     width: 100%;
@@ -48,7 +52,11 @@ export const CardSkeletonContainer = styled.div`
     .ant-skeleton{
         width: 100%;
     }
-    `
+
+    @media only screen and (max-width: 915px) {
+        display: block !important;
+    }
+`
 export const ButtonSkeleton = styled(Button)`
     width: 100% !important;
     margin: 15px;
