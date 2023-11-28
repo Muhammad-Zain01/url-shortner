@@ -1,12 +1,21 @@
 import { CopyFilled, DeleteOutlined } from '@ant-design/icons';
 import React, { useEffect, useState } from 'react';
 import { message, Avatar, List, Space, Result, Button } from 'antd';
-import { MainUrl, OldUrl, TitleContainer, ActionButton, TitleMain } from './link-list.style';
 import PrivateNavigate from '../../hook/usePrivateNavigate';
 import LinkListSkeleton from './link-list-skeleton.component';
 import { removeUrl, GetUrls } from '../../API/API.request';
 import { EyeOutlined } from '@ant-design/icons';
 import { validateURL } from '../../utils/helper';
+import {
+    MainUrl,
+    OldUrl,
+    TitleContainer,
+    ActionButton,
+    TextWrapper,
+    ListItem,
+    ButtonWrapperHead
+} from './link-list.style';
+
 const IconText = ({ icon, text }) => (
     <Space>
         {React.createElement(icon, { style: { fontSize: 15 } })}
@@ -58,8 +67,7 @@ const LinkList = () => {
                             dataSource={data}
                             renderItem={(item) => (
                                 <>
-                                    <List.Item
-                                        style={{ background: 'white', border: '.1rem solid #dbe0eb', padding: 40, marginBottom: 20, borderRadius: '0.5rem' }}
+                                    <ListItem
                                         key={item.title}
                                         actions={[
                                             <IconText icon={EyeOutlined} text={item.views} key="" />,
@@ -67,10 +75,10 @@ const LinkList = () => {
                                             // <IconText icon={TbHandClick} text="2" key="list-vertical-message" />,
                                         ]}
                                         extra={
-                                            <div>
+                                            <ButtonWrapperHead>
                                                 <ActionButton icon={<CopyFilled />} onClick={() => handleCopy(new_url(item.keyword))}>Copy Link</ActionButton>
                                                 <ActionButton icon={<DeleteOutlined />} onClick={() => removeURL(item.keyword)}></ActionButton>
-                                            </div>
+                                            </ButtonWrapperHead>
                                         }
                                     >
                                         <List.Item.Meta
@@ -78,20 +86,20 @@ const LinkList = () => {
                                             title={
                                                 <>
                                                     <TitleContainer>
-                                                        <TitleMain>
+                                                        <TextWrapper>
                                                             <a>{item.title}</a>
-                                                        </TitleMain>
+                                                        </TextWrapper>
                                                         <MainUrl href={new_url(item.keyword)} target='_blank'>
-                                                            {new_url(item.keyword)}
-                                                        </MainUrl> <br />
+                                                            <TextWrapper>{new_url(item.keyword)}</TextWrapper>
+                                                        </MainUrl>
                                                         <OldUrl href={validateURL(item.url)} target='_blank'>
-                                                            {validateURL(item.url)}
+                                                            <TextWrapper>{validateURL(item.url)}</TextWrapper>
                                                         </OldUrl>
                                                     </TitleContainer>
                                                 </>
                                             }
                                         />
-                                    </List.Item>
+                                    </ListItem>
                                 </>
                             )}
                         />
