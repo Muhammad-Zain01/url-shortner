@@ -5,6 +5,7 @@ const INITIAL_STATE = {
     username: "",
     displayName: "",
     email: "",
+    isVerified: false,
 }
 const DEFAULT_VALUES = {
     ...INITIAL_STATE,
