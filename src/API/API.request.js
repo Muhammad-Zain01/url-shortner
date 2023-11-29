@@ -13,3 +13,4 @@ export const getDisplayName = async () => await authPost(RequestUrls.getDisplayN
 export const updateDisplayName = async (data) => await authPost(RequestUrls.setDisplayName, data)
 export const getUser = async () => await authPost(RequestUrls.getUser)
 export const updatePassword = async (data) => await authPost(RequestUrls.updatePassword, data)
+export const verifyUser = async (data) => await authPost(RequestUrls.verifyUser, data)
