@@ -52,5 +52,8 @@ export const validateURL = (url) => {
     }
     return url
 }
+export const isNumeric = (character) => {
+    return !isNaN(Number(character))
+}
 
 export const reload = () => { window.location.reload() }

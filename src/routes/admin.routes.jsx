@@ -8,17 +8,28 @@ import useAuth from "../hook/useAuth";
 import { useUser } from "../hook/useUser";
 import { useEffect } from "react";
 import { getUser } from "../API/API.request";
+import usePrivateNavigate from "../hook/usePrivateNavigate";
+import Verification from "../pages/verification/verification.pages";
 const AdminRoutes = () => {
     const { setUser } = useUser();
+    const { adminNavigate } = usePrivateNavigate();
     useEffect(() => {
         const fetchUserDetails = async () => {
+
             const response = await getUser()
-            if(response?.status){
+            if (response?.status) {
+
                 setUser({
                     username: response?.data?.username,
                     email: response?.data?.email,
-                    displayName: response?.data?.displayName
+                    displayName: response?.data?.displayName,
+                    isVerified: !response?.data?.isVerified,
                 })
+                if (!response?.data?.isVerified) {
+                    adminNavigate('verification');
+                } else {
+                    adminNavigate('dashboard');
+                }
             }
         }
         fetchUserDetails()
@@ -34,6 +45,7 @@ const AdminRoutes = () => {
             <Route path="/link" element={<Links />} />
             <Route path="/link/add" element={<AddLink />} />
             <Route path="/settings" element={<Settings />} />
+            <Route path="/verification" element={<Verification />} />
         </Routes>
     )
 }

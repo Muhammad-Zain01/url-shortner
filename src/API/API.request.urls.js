@@ -13,6 +13,7 @@ export const RequestUrls = {
     setDisplayName: '/admin/events/set-display-name',
     getUser: '/admin/events/get-user',
     updatePassword: '/admin/events/update-password',
+    verifyUser: '/admin/events/verify-user',
     // GLOBAL EVENTS
     capture: '/capture',
 }
