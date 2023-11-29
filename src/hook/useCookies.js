@@ -7,8 +7,11 @@ const useCookie = () => {
     const get = (key) => {
         return Cookies.get(key)
     }
+    const remove = (key) => {
+        return Cookies.remove(key, { path: '' });
+    }
 
-    return { set, get }
+    return { set, get, remove }
 }
 
 export default useCookie;

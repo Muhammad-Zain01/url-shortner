@@ -1,5 +1,11 @@
 
 import { Request } from "../API/API"
+import useCookie from "../hook/useCookies"
+export const SignOut = () => {
+    const Cookie = useCookie();
+    Cookie.remove('token');
+    reload();
+}
 export const TitleParser = async (url) => {
     const html = await Request("GET", `${import.meta.env.VITE_SERVER_URL}/proxy/${url}`, {}, { 'X-Requested-With': '' })
     const parser = new DOMParser();

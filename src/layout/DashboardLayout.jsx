@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { PlusOutlined } from '@ant-design/icons';
-import { Layout, Menu, theme } from 'antd';
+import { Layout, theme } from 'antd';
 import {
     NavHeader,
     SideMenu,
@@ -16,7 +16,7 @@ import { useLocation } from 'react-router-dom';
 import { SideItems } from './NavItems';
 import UserAction from '../components/user-action/user-action.components';
 import usePrivateNavigate from '../hook/usePrivateNavigate'
-import Logo  from '../components/logo/logo.component';
+import Logo from '../components/logo/logo.component';
 const DashboardLayout = ({ children }) => {
     const { token: { colorBgContainer, colorPrimary } } = theme.useToken();
     const { adminNavigate } = usePrivateNavigate();
@@ -44,7 +44,7 @@ const DashboardLayout = ({ children }) => {
                 >
                     <Logo collapsed={collapsed} />
                     <Arrow side={!collapsed ? 'left' : 'right'} onClick={() => setCollapsed(!collapsed)} />
-                    
+
                     <LinkButtonContainer>
                         <LinkButton onClick={() => { adminNavigate('link/add') }} style={{ width: '100%' }} type='primary'>{!collapsed ? `Create new` : <PlusOutlined />}</LinkButton>
                     </LinkButtonContainer>

@@ -1,17 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Dropdown } from 'antd';
 import { UserActionButton, UserAvatar, UserActionContainer, UserActionDiv, SpanName, SpanEmail } from './user-action.styles';
-import useSession from '../../hook/useSession';
 import { useUser } from '../../hook/useUser'
-import { reload } from '../../utils/helper'
+import { SignOut } from '../../utils/helper';
 const UserAction = () => {
     const { displayName, email } = useUser();
-    let SESSION = useSession();
     const items = []
     const onClick = (value) => {
         if (value.key == 'signout') {
-            SESSION.clear();
-            reload();
+            SignOut()
         }
     };
     const UserDetails = (

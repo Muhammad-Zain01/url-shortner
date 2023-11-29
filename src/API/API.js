@@ -1,5 +1,5 @@
 import axios from 'axios';
-import useAuth from '../hook/useAuth';
+import { SignOut } from '../utils/helper';
 import useCookie from '../hook/useCookies';
 export async function Request(request_type, url, data = {}, headers = {}) {
     let config = {
@@ -25,9 +25,13 @@ export function Post(url, data = {}, headers = {}) {
     return Request('post', uri, data, headers);
 }
 
-export function authPost(url, data = {}, headers = {}) {
+export async function authPost(url, data = {}, headers = {}) {
     const cookie = useCookie();
     const token = cookie.get('token')
-    return Post(url, { ...data }, { ...headers, 'Authorization': `Bearer ${token}` })
+    const response = await Post(url, { ...data }, { ...headers, 'Authorization': `Bearer ${token}` })
+    if(response.message == "INVALID_TOKEN"){
+        SignOut();
+    }
+    return response;
 }
 
