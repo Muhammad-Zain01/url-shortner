@@ -66,7 +66,7 @@ const LoginPage = () => {
                             />
                         </Form.Item>
                         <Form.Item style={{ display: 'flex', justifyContent: 'end' }}>
-                            <a className="login-form-forgot" href="">
+                            <a className="login-form-forgot" href="/forgot-password">
                                 Forgot password
                             </a>
                         </Form.Item>
