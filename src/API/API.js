@@ -1,5 +1,6 @@
 import axios from 'axios';
 import useAuth from '../hook/useAuth';
+import useCookie from '../hook/useCookies';
 export async function Request(request_type, url, data = {}, headers = {}) {
     let config = {
         method: request_type,
@@ -24,8 +25,9 @@ export function Post(url, data = {}, headers = {}) {
     return Request('post', uri, data, headers);
 }
 
-export function authPost(url, data = {}, headers = {}){
-    const auth = useAuth();
-    return Post(url, {user: auth, ...data}, headers)
+export function authPost(url, data = {}, headers = {}) {
+    const cookie = useCookie();
+    const token = cookie.get('token')
+    return Post(url, { ...data }, { ...headers, 'Authorization': `Bearer ${token}` })
 }
 
