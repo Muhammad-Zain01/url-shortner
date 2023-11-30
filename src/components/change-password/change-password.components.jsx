@@ -21,9 +21,6 @@ const ChangePassword = () => {
             message.warning('Passwords do not match')
             return false;
         }
-        console.log(currentPassword)
-        console.log(newPassword)
-        console.log(confirmPassword)
         if (currentPassword == newPassword) {
             message.warning('New password cannot be same as current password')
             return false;
