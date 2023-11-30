@@ -20,7 +20,7 @@ import Logo from '../components/logo/logo.component';
 const DashboardLayout = ({ children }) => {
     const { token: { colorBgContainer, colorPrimary } } = theme.useToken();
     const { adminNavigate } = usePrivateNavigate();
-    const [collapsed, setCollapsed] = useState(false);
+    const [collapsed, setCollapsed] = useState(window.innerWidth < 992 ? true : false);
     const route = useLocation();
     const currentPage = {
         "dashboard": "1",
