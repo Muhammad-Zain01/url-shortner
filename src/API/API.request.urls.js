@@ -3,6 +3,8 @@ export const RequestUrls = {
     login: '/auth/login',
     register: '/auth/register',
     verifyUsername: '/auth/verify',
+    forgotPasswordEmailVerify: '/auth/forgot-password/email-verfiy',
+    resetCode: '/auth/forgot-password/reset-code',
     // ADMIN EVENTS
     getUrls: '/admin/events/get-urls',
     verifyKeyword: '/admin/events/keyword',
