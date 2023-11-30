@@ -10,31 +10,35 @@ import { useEffect } from "react";
 import { getUser } from "../API/API.request";
 import usePrivateNavigate from "../hook/usePrivateNavigate";
 import Verification from "../pages/verification/verification.pages";
+import { useLocation } from "react-router-dom";
 const AdminRoutes = () => {
     const { setUser } = useUser();
     const { adminNavigate } = usePrivateNavigate();
+    const { User } = useParams();
+    const route = useLocation();
+    const path = route.pathname.split('/')
+    const pathname = path.slice(2).join('/')
     useEffect(() => {
         const fetchUserDetails = async () => {
-
             const response = await getUser()
             if (response?.status) {
-
                 setUser({
                     username: response?.data?.username,
                     email: response?.data?.email,
                     displayName: response?.data?.displayName,
                     isVerified: !response?.data?.isVerified,
                 })
+                
                 if (!response?.data?.isVerified) {
                     adminNavigate('verification');
-                } else {
+                } else if(pathname == 'verification') {
                     adminNavigate('dashboard');
                 }
             }
         }
         fetchUserDetails()
     }, [])
-    const { User } = useParams();
+    
     const auth = useAuth()
     if (!auth) { return <Navigate to="/login" /> }
     if (auth.username != User) { return <Navigate to="/login" /> }
