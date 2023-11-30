@@ -14,6 +14,7 @@ export const RequestUrls = {
     getUser: '/admin/events/get-user',
     updatePassword: '/admin/events/update-password',
     verifyUser: '/admin/events/verify-user',
+    resendEmail: '/admin/events/resend-email',
     // GLOBAL EVENTS
     capture: '/capture',
 }
