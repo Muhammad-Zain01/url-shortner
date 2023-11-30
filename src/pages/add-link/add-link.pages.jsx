@@ -11,7 +11,12 @@ const AddLink = () => {
     const { adminNavigate } = PrivateNavigate();
     const [title, setTitle] = useState('');
     const [loading, setLoading] = useState(false)
-    const [url, setUrl] = useState('')
+    const [url, setUrl] = useState('');
+    const [titleConfig, setTitleConfig] = useState({
+        hasFeedback: false,
+        validateStatus: "",
+        help: ""
+    });
     const [urlConfig, setUrlConfig] = useState({
         hasFeedback: false,
         validateStatus: "",
@@ -29,8 +34,16 @@ const AddLink = () => {
                 validateStatus: "validating",
                 help: ""
             })
-            const ParsedTitle = await TitleParser(value);
-            setTitle(ParsedTitle)
+            const response = await TitleParser(value);
+            if (!response) {
+                setUrlConfig({
+                    hasFeedback: true,
+                    validateStatus: "error",
+                    help: "URL is not valid"
+                })
+                return;
+            }
+            setTitle(response)
             setUrlConfig({
                 hasFeedback: true,
                 validateStatus: "success",
@@ -49,38 +62,48 @@ const AddLink = () => {
     const onSubmit = async (value) => {
         const { url, backhalf } = value
         setLoading(true);
-        const urlValidated = await urlValidation(url);
-        if (urlValidated) {
-            let newTitle = title;
-            if (newTitle == "") { newTitle = await TitleParser(url) }
-            if (backhalf != "") {
-                const response = await verifyKeyword(backhalf);
-                if (response.status == 1) {
+        if (urlConfig.validateStatus == 'success') {
+            if (title !== '') {
+                if (backhalf != "") {
+                    const response = await verifyKeyword(backhalf);
+                    if (response.status == 1) {
+                        setkeyword({
+                            hasFeedback: true,
+                            validateStatus: "error",
+                            help: "Use another keyword, keyword already exists."
+                        });
+                        return;
+                    }
                     setkeyword({
                         hasFeedback: true,
-                        validateStatus: "error",
-                        help: "Use another keyword, keyword already exists."
+                        validateStatus: "success",
+                        help: ""
                     });
-                    return;
                 }
-                setkeyword({
+                const icon = await IconParser(url);
+                const data = {
+                    url,
+                    title,
+                    keyword: backhalf ?? "",
+                    icon
+                }
+                const response = await addUrl(data);
+                if (response?.status == 1) {
+                    message.success('Link added successfully.');
+                    adminNavigate('link')
+                }
+            }
+            else {
+                setTitleConfig({
                     hasFeedback: true,
-                    validateStatus: "success",
-                    help: ""
-                });
+                    validateStatus: "error",
+                    help: "Title field is Mandantory"
+                })
             }
-            const icon = await IconParser(url);
-            const data = {
-                url,
-                title: newTitle,
-                keyword: backhalf ?? "",
-                icon
-            }
-            const response = await addUrl(data);
-            if (response?.status == 1) {
-                message.success('Link added successfully.');
-                adminNavigate('link')
-            }
+        }
+        else {
+            if (urlConfig.validateStatus == 'validating') message.error('Please wait while we validate the url');
+            else message.error('Please add valid url');
         }
         setLoading(false);
     }
@@ -112,7 +135,12 @@ const AddLink = () => {
                         >
                             <Input prefix="" value={url} onChange={(e) => setUrl(e.target.value)} placeholder="https://example.com/long-url" onBlur={HandleUrl} />
                         </Form.Item>
-                        <Form.Item label="Title">
+                        <Form.Item
+                            hasFeedback={titleConfig.hasFeedback}
+                            validateStatus={titleConfig.validateStatus}
+                            help={titleConfig.help}
+                            label="Title"
+                        >
                             <Input value={title} onChange={(e) => setTitle(e.target.value)} />
                         </Form.Item>
                         <LinkContainer>
