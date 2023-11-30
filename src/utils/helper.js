@@ -6,12 +6,23 @@ export const SignOut = () => {
     Cookie.remove('token');
     reload();
 }
+const WebDataExtractor = async (url) => {
+    const response = await Request("GET", `${import.meta.env.VITE_SERVER_URL}/proxy/${url}`, {}, { 'X-Requested-With': '' })
+    if (response?.response?.status == 500) {
+        return false;
+    } else {
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(response, 'text/html');
+        return doc;
+    }
+}
 export const TitleParser = async (url) => {
-    const html = await Request("GET", `${import.meta.env.VITE_SERVER_URL}/proxy/${url}`, {}, { 'X-Requested-With': '' })
-    const parser = new DOMParser();
-    const doc = parser.parseFromString(html, 'text/html');
-    const title = doc.querySelector('title')?.innerText;
-    return title;
+    const response = await WebDataExtractor(url)
+    if (response) {
+        const title = response.querySelector('title')?.innerText;
+        return title;
+    }
+    return response;
 }
 function joinUrl(baseUrl, relativePath) {
     if (!baseUrl.match(/^https?:\/\//)) {
@@ -22,22 +33,23 @@ function joinUrl(baseUrl, relativePath) {
 
 
 export const IconParser = async (url) => {
-    const htmlString = await Request("GET", `${import.meta.env.VITE_SERVER_URL}/proxy/${url}`, {}, { 'X-Requested-With': '' })
-    const parser = new DOMParser();
-    const doc = parser.parseFromString(htmlString, 'text/html');
-    const linkElements = doc.head.querySelectorAll('link[rel="icon"], link[rel="shortcut icon"], link[rel="apple-touch-icon"]');
-    for (let link of linkElements) {
-        if (link.href) {
-            let faviconUrl;
-            if (link.getAttribute('href').startsWith('http://') || link.getAttribute('href').startsWith('https://')) {
-                faviconUrl = link.getAttribute('href');
-            } else {
-                faviconUrl = joinUrl(url, link.getAttribute('href'))
+    const response = await WebDataExtractor(url)
+    if (response) {
+        const linkElements = response.head.querySelectorAll('link[rel="icon"], link[rel="shortcut icon"], link[rel="apple-touch-icon"]');
+        for (let link of linkElements) {
+            if (link.href) {
+                let faviconUrl;
+                if (link.getAttribute('href').startsWith('http://') || link.getAttribute('href').startsWith('https://')) {
+                    faviconUrl = link.getAttribute('href');
+                } else {
+                    faviconUrl = joinUrl(url, link.getAttribute('href'))
+                }
+                return faviconUrl;
             }
-            return faviconUrl;
         }
+        return joinUrl(url, '/favicon.ico')
     }
-    return joinUrl(url, '/favicon.ico')
+    return response;
 }
 
 export const isValidUrl = (url) => {
