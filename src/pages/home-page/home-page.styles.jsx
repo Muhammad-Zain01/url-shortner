@@ -8,6 +8,11 @@ export const Wrapper = styled.div`
     .container{
         width: 1320px;
     }
+    @media only screen and (max-width: 1320px) {
+        .container{
+            width: 100%;
+        }
+    }
 `
 
 
@@ -113,7 +118,6 @@ export const HeroButton = styled(WebButton)`
     @media only screen and (max-width: 959px) {
         font-size:14px;
     }
-   
 `
 
 export const PreviewImageContainer = styled.div`
