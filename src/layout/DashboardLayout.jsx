@@ -30,39 +30,41 @@ const DashboardLayout = ({ children }) => {
         "settings": "4",
     }[route.pathname.split('/')[route.pathname.split('/').length - 1]]
     return (
-        <Layout>
-            <NavHeader bg={colorBgContainer} >
-                <UserAction />
-            </NavHeader>
+        <>
             <Layout>
-                <SideMenuContainer
-                    breakpoint='lg'
-                    collapsed={collapsed}
-                    bg={colorBgContainer}
-                    width={250}
-                    onBreakpoint={(broken) => setCollapsed(broken)}
-                >
-                    <Logo collapsed={collapsed} />
-                    <Arrow side={!collapsed ? 'left' : 'right'} onClick={() => setCollapsed(!collapsed)} />
+                <NavHeader bg={colorBgContainer} >
+                    <UserAction />
+                </NavHeader>
+                <Layout>
+                    <SideMenuContainer
+                        breakpoint='lg'
+                        collapsed={collapsed}
+                        bg={colorBgContainer}
+                        width={250}
+                        onBreakpoint={(broken) => setCollapsed(broken)}
+                    >
+                        <Logo collapsed={collapsed} />
+                        <Arrow side={!collapsed ? 'left' : 'right'} onClick={() => setCollapsed(!collapsed)} />
 
-                    <LinkButtonContainer>
-                        <LinkButton onClick={() => { adminNavigate('link/add') }} style={{ width: '100%' }} type='primary'>{!collapsed ? `Create new` : <PlusOutlined />}</LinkButton>
-                    </LinkButtonContainer>
-                    <SideMenu
-                        ico={colorPrimary}
-                        mode="inline"
-                        defaultSelectedKeys={currentPage}
-                        items={SideItems}
-                    />
+                        <LinkButtonContainer>
+                            <LinkButton onClick={() => { adminNavigate('link/add') }} style={{ width: '100%' }} type='primary'>{!collapsed ? `Create new` : <PlusOutlined />}</LinkButton>
+                        </LinkButtonContainer>
+                        <SideMenu
+                            ico={colorPrimary}
+                            mode="inline"
+                            defaultSelectedKeys={currentPage}
+                            items={SideItems}
+                        />
 
-                </SideMenuContainer>
-                <LayoutContentContainer>
-                    <LayoutContent>
-                        {children}
-                    </LayoutContent>
-                </LayoutContentContainer>
+                    </SideMenuContainer>
+                    <LayoutContentContainer>
+                        <LayoutContent>
+                            {children}
+                        </LayoutContent>
+                    </LayoutContentContainer>
+                </Layout>
             </Layout>
-        </Layout>
+        </>
     );
 };
 export default DashboardLayout;
