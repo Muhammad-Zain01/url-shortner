@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Form, Divider, message } from 'antd';
 import { LoginBox, LoginContainer } from './login.styles';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
@@ -14,6 +14,7 @@ import Logo from '../../components/logo/logo.component';
 import useCookie from '../../hook/useCookies';
 const LoginPage = () => {
     const { adminNavigate } = usePrivateNavigate();
+    const [loading, setLoading] = useState(false);
     const Session = useSession();
     const cookie = useCookie();
     useEffect(() => {
@@ -22,6 +23,7 @@ const LoginPage = () => {
 
     const onSubmit = async (value) => {
         const { username, password } = value
+        setLoading(true)
         const response = await Login(username, password)
         if (response.status) {
             const token = response?.data?.token;
@@ -35,6 +37,7 @@ const LoginPage = () => {
         } else {
             message.error('Email or Password is not valid.');
         }
+        setLoading(false)
     }
     return (
         <>
@@ -71,7 +74,7 @@ const LoginPage = () => {
                             </a>
                         </Form.Item>
                         <Form.Item>
-                            <Button size='medium' style={{ width: '100%' }} type="primary" htmlType="submit">
+                            <Button size='medium' style={{ width: '100%' }} type="primary" htmlType="submit" loading={loading}>
                                 Log in
                             </Button>
                         </Form.Item>
