@@ -11,6 +11,7 @@ import { VerifyUsername, RegisterUser } from '../../API/API.request';
 import Logo from '../../components/logo/logo.component';
 const RegisterPage = () => {
     const redirect = useNavigate();
+    const [loading, setLoading] = useState(false);
     const [UsernameConfig, setUsernameConfig] = useState({
         validateStatus: '',
         hasFeedback: false,
@@ -23,7 +24,9 @@ const RegisterPage = () => {
     })
     const onSubmit = async (value) => {
         const { username, email, password } = value
+        setLoading(true);
         const response = await VerifyUsername(username);
+        setLoading(false);
         if (!response.status) {
             setUsernameConfig({ validateStatus: 'error', hasFeedback: true, help: 'Username already exists' })
             return;
@@ -39,6 +42,7 @@ const RegisterPage = () => {
             message.success('You have Successfully Registed.');
             redirect("/login");
         }
+        
     }
     return (
         <LoginContainer>
@@ -81,7 +85,7 @@ const RegisterPage = () => {
                         />
                     </Form.Item>
                     <Form.Item>
-                        <Button type="primary" htmlType="submit">
+                        <Button type="primary" htmlType="submit" loading={loading}>
                             Register
                         </Button>
                     </Form.Item>
