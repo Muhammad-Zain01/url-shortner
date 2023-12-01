@@ -13,11 +13,11 @@ import {
     HeroButton,
     PreviewImage,
     PreviewImageContainer,
-    WebButton,
     Wrapper,
 } from './home-page.styles';
 import Particle from '../../components/particles/particles.component';
-
+import ProductDetail from './components/product-details.component';
+import PageFooter from './components/footer.component';
 const HomePage = () => {
     const { token: { colorPrimary } } = theme.useToken();
     const navigate = useNavigate();
@@ -53,31 +53,11 @@ const HomePage = () => {
                             </PreviewImageContainer>
                         </ContentBox>
                     </ContentContainer>
-                    <div style={{ position: 'relative', background: "white" }}>
-                        Modern tools
-                        Partnership or temporary organization perfectly designed.
-                        <br /><br />
-                        <br /><br />
-                        Boost performance
-                        GRID displays your content in an eye-catching way and enables customizable internal distribution.
-                        <br /><br />
-                        <br /><br />
-
-                        Higly customizable
-                        Key features flexible layouts and themes to customize your content's unique look.
-                        <br /><br />
-                        <br /><br />
-
-                        Simplified workflow
-                        Key is the first-ever truly team-friendly media CMS. Collaborating on content is efficient.
-                        <br /><br />
-                        <br /><br />
-
-                        Cross platform
-                        Credibly innovate granular internal or "organic" sources whereas high standards in web-readiness.
-                        <br /><br />
-
-
+                    <div style={{ display: 'flex', justifyContent: 'center', position: 'relative', background: "white" }}>
+                        <ProductDetail />
+                    </div>
+                    <div style={{ display: 'flex', justifyContent: 'center', position: 'relative', background: "#273140" }}>
+                        <PageFooter />
                     </div>
                 </Wrapper>
             </div>
