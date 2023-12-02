@@ -20,10 +20,18 @@ export const ProductWrapper = styled.div`
     display: flex;
     margin-top: 30px;
     justify-content: center;
+    @media only screen and (max-width: 660px) {
+        flex-direction: column;
+    }
 `
 export const ProductCard = styled.div`
     width: 32.33%;
-   
+    @media only screen and (max-width: 660px) {
+        margin: auto;
+        margin-bottom: 40px;
+        width: 90%;
+        
+    }
     div{
         display: flex;
         justify-content: center;
