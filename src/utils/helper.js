@@ -7,7 +7,7 @@ export const SignOut = () => {
     reload();
 }
 const WebDataExtractor = async (url) => {
-    const response = await Request("GET", `${import.meta.env.VITE_SERVER_URL}/proxy/${url}`, {}, { 'X-Requested-With': '' })
+    const response = await Request("GET", `${import.meta.env.VITE_SERVER_URL}/proxy?url=${url}`, {}, { 'X-Requested-With': '' })
     if (response?.response?.status == 500) {
         return false;
     } else {
