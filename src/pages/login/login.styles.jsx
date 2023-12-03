@@ -10,4 +10,10 @@ export const LoginContainer = styled.div`
 export const LoginBox = styled.div`
     width: 35%; 
     height: 50%;
+    @media only screen and (max-width: 886px) {
+        width: 80%; 
+    }
+    @media only screen and (max-width: 400px) {
+        width: 90%; 
+    }
 `
