@@ -1,4 +1,5 @@
 import { FooterContainer, FooterDeveloperDescriptionContainer, FooterTitle, ImageContainer } from "./footer.styles";
+import GithubButton from "./github-button";
 const PageFooter = () => {
     return (
         <FooterContainer className="container" style={{}}>
@@ -71,7 +72,7 @@ const PageFooter = () => {
                         <br />
 
                         I am dedicated to perpetual learning and skill enhancement, staying abreast of the latest industry trends and technologies. My approach integrates strong communication skills and collaborative problem-solving, ensuring transparent interactions with clients and team members.
-
+                        <GithubButton />
                     </FooterDeveloperDescriptionContainer>
                 </div>
             </div>
