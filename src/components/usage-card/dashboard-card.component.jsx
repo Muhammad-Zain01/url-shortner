@@ -1,118 +1,168 @@
-import { useEffect, useState } from "react";
-import { getDashboardData } from "../../API/API.request"
+import { useEffect, useState, useCallback } from "react";
+import { getDashboardData } from "../../API/API.request";
 import TimeseriesChart from "../timeseries-chart/timeseries-chart.components";
 import CountryChart from "../country-chart/country-chart.components";
-import CountUp from 'react-countup';
-import { Statistic, Skeleton, Space } from "antd";
-import { CodeSandboxCircleFilled, DotChartOutlined } from "@ant-design/icons";
+import CountUp from "react-countup";
+import { Statistic, Card, Spin } from "antd";
+import { 
+  LinkOutlined, 
+  EyeOutlined, 
+  GlobalOutlined 
+} from "@ant-design/icons";
 import {
-    DashboardCardContainer,
-    CardContainer,
-    DashboardCard,
-    ChartSkeleton,
-    ChartSkeletonContainer,
-    CardSkeletonContainer,
-    ButtonSkeleton
+  DashboardCardContainer,
+  CardContainer,
+  DashboardCard,
 } from "./dashboard-card.styles";
+
 const DashboardCards = () => {
-    const [data, setData] = useState({ category: [], data: [] });
-    const [link_created, setLinkCreated] = useState(0);
-    const [total_views, setTotalViews] = useState(0);
-    const [countryData, setCountryData] = useState([]);
-    const [loading, setLoading] = useState(true);
+  const [data, setData] = useState({ category: [], data: [] });
+  const [link_created, setLinkCreated] = useState(0);
+  const [total_views, setTotalViews] = useState(0);
+  const [countryData, setCountryData] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [initialLoadComplete, setInitialLoadComplete] = useState(false);
 
-    const formatter = (value) => <CountUp end={value} separator="," />;
-    const handleData = async () => {
-        setLoading(true)
-        const response = await getDashboardData();
-        const timeSeries = {}
-        const tempCountryData = {}
-        if (response?.status) {
-            
-            response?.data[0].webdata && response?.data[0].webdata.map(views => {
-                const location = views?.data?.location;
-                const countryCode = location?.countryCode?.toLowerCase();
-                const date = new Date(views.time);
-                const dt = `${date.toLocaleDateString('en-US', { month: 'short' })} ${date.getDate()}`
-                timeSeries[dt] ? timeSeries[dt]++ : timeSeries[dt] = 1
-                tempCountryData[countryCode] ? tempCountryData[countryCode]++ : tempCountryData[countryCode] = 1
-            })
-            let TimeValues = { category: Object.keys(timeSeries), data: Object.values(timeSeries) };
-            TimeValues = TimeValues.category.map((dt, _idx) => ({ date: dt, value: TimeValues.data[_idx] }))
-            TimeValues.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
-            setData({
-                category: TimeValues.map(item => item.date),
-                data: TimeValues.map(item => item.value)
-            })
-            setLinkCreated(response?.data[0].urls_data.length)
-            setTotalViews(response?.data[0].webdata.length)
-            setCountryData(Object.keys(tempCountryData).map(key => [key, tempCountryData[key]]))
-        }
-        setLoading(false)
-
+  const formatter = (value) => <CountUp end={value} separator="," />;
+  
+  const handleData = useCallback(async () => {
+    if (!initialLoadComplete) {
+      setLoading(true);
     }
-    useEffect(() => {
-        const cre = document.getElementsByClassName('highcharts-credits')
-        cre.length > 0 && Array.from({ length: cre.length }, (_, index) => index).map(idx => cre[idx].style.display = 'none')
-        handleData()
-    }, [])
+    
+    try {
+      const response = await getDashboardData();
+      const timeSeries = {};
+      const tempCountryData = {};
+      
+      if (response?.status) {
+        const webData = response?.data[0]?.webdata || [];
+        const urlsData = response?.data[0]?.urls_data || [];
+        
+        webData.forEach((view) => {
+          // Process location data
+          const location = view?.data?.location;
+          const countryCode = location?.countryCode?.toLowerCase();
+          
+          // Process date for time series
+          const date = new Date(view.time);
+          const dt = `${date.toLocaleDateString("en-US", {
+            month: "short",
+          })} ${date.getDate()}`;
+          
+          timeSeries[dt] ? timeSeries[dt]++ : (timeSeries[dt] = 1);
+          
+          if (countryCode) {
+            tempCountryData[countryCode]
+              ? tempCountryData[countryCode]++
+              : (tempCountryData[countryCode] = 1);
+          }
+        });
+        
+        // Format time series data
+        let timeValues = Object.keys(timeSeries).map((dt, idx) => ({
+          date: dt,
+          value: Object.values(timeSeries)[idx],
+        }));
+        
+        timeValues.sort(
+          (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
+        );
+        
+        setData({
+          category: timeValues.map((item) => item.date),
+          data: timeValues.map((item) => item.value),
+        });
+        
+        setLinkCreated(urlsData.length);
+        setTotalViews(webData.length);
+        setCountryData(
+          Object.keys(tempCountryData).map((key) => [key, tempCountryData[key]])
+        );
+      }
+    } catch (error) {
+      console.error("Error fetching dashboard data:", error);
+    }
+    
+    setLoading(false);
+    setInitialLoadComplete(true);
+  }, [initialLoadComplete]);
+  
+  useEffect(() => {
+    const hideCredits = () => {
+      const credits = document.getElementsByClassName("highcharts-credits");
+      if (credits.length > 0) {
+        Array.from(credits).forEach((credit) => {
+          credit.style.display = "none";
+        });
+      }
+    };
+    
+    handleData();
+    
+    // Set interval to hide credits that might be added after charts render
+    const interval = setInterval(hideCredits, 500);
+    
+    return () => clearInterval(interval);
+  }, [handleData]);
 
-    return (
-        <DashboardCardContainer>
-            {
-                !loading ? (
-                    <>
-                        <CardContainer>
-                            <DashboardCard width="49.5">
-                                <Statistic title="Total Links" value={link_created} formatter={formatter} />
-                            </DashboardCard>
-                            {/* <DashboardCard width="24.5">
-                                <Statistic title="Qouta Remaining" value={1} formatter={formatter} />
-                            </DashboardCard> */}
-                            <DashboardCard width="49.5">
-                                <Statistic title="Total Views" value={total_views} formatter={formatter} />
-                            </DashboardCard>
-                            {/* <DashboardCard width="33">
-                                    <Statistic title="Active Users" value={2} formatter={formatter} />
-                                </DashboardCard> */}
-                        </CardContainer>
-                        <CardContainer>
-                            <DashboardCard width="49.5" >
-                                <TimeseriesChart data={data} />
-                            </DashboardCard>
-                            <DashboardCard width="49.5">
-                                <CountryChart data={countryData} />
-                            </DashboardCard>
-                        </CardContainer>
-                    </>
-                ) : (
-                    <div>
-                        <CardSkeletonContainer>
-                            <ButtonSkeleton active={true} shape='square' />
-                            <ButtonSkeleton active={true} shape='square' />
-                        </CardSkeletonContainer>
-                        <ChartSkeletonContainer>
-                            <ChartSkeleton width="50" active={true}>
-                                <DotChartOutlined
-                                    style={{
-                                        fontSize: 40,
-                                        color: '#bfbfbf',
-                                    }}
-                                />
-                            </ChartSkeleton>
-                            <ChartSkeleton width="50" active={true}>
-                                <DotChartOutlined
-                                    style={{
-                                        fontSize: 40,
-                                        color: '#bfbfbf',
-                                    }}
-                                />
-                            </ChartSkeleton>
-                        </ChartSkeletonContainer>
-                    </div>
-                )
-            }
-        </DashboardCardContainer>
-    )
-}
+  return (
+    <DashboardCardContainer>
+      {loading && !initialLoadComplete ? (
+        <div style={{ textAlign: 'center', padding: '40px' }}>
+          <Spin size="large" tip="Loading dashboard data..." />
+        </div>
+      ) : (
+        <>
+          <CardContainer>
+            <DashboardCard width="32.5">
+              <Statistic
+                title="Total Links"
+                value={link_created}
+                formatter={formatter}
+                prefix={<LinkOutlined />}
+                loading={loading}
+              />
+            </DashboardCard>
+           
+            <DashboardCard width="32.5">
+              <Statistic
+                title="Total Views"
+                value={total_views}
+                formatter={formatter}
+                prefix={<EyeOutlined />}
+                loading={loading}
+              />
+            </DashboardCard>
+            
+            <DashboardCard width="32.5">
+              <Statistic
+                title="Countries"
+                value={countryData.length}
+                formatter={formatter}
+                prefix={<GlobalOutlined />}
+                loading={loading}
+              />
+            </DashboardCard>
+          </CardContainer>
+          
+          <CardContainer>
+            <DashboardCard width="49.5">
+              <Card title="Views Over Time" bordered={false} loading={loading}>
+                <TimeseriesChart data={data} />
+              </Card>
+            </DashboardCard>
+            
+            <DashboardCard width="49.5">
+              <Card title="Geographic Distribution" bordered={false} loading={loading}>
+                <CountryChart data={countryData} />
+              </Card>
+            </DashboardCard>
+          </CardContainer>
+        </>
+      )}
+    </DashboardCardContainer>
+  );
+};
+
 export default DashboardCards;

@@ -21,30 +21,61 @@ export const SideMenu = styled(Menu)`
     flex-direction: column;
     align-items: center;
     position: relative;
-    .ant-menu-item{
-        border-radius: 4px;
-        font-weight: 400;
+    margin-top: 10px;
+    
+    .ant-menu-item {
+        border-radius: 8px;
+        font-weight: 500;
         width: 90%;
         margin: 8px 0px;
+        transition: all 0.3s ease;
+        height: 48px;
+        line-height: 48px;
+        
+        &:hover {
+            background-color: rgba(7, 102, 173, 0.05);
+            color: ${props => props.ico};
+        }
     }
-    .ant-menu-item-selected::before{
-        content: "";
-        width: 5px;
-        font-weight: 500;
-        left: 0px;
-        border-radius: 20px;
-        top: 25%;
-        position: absolute;
-        height: 20px;
-        background-color: ${props => props.ico};
+    
+    .ant-menu-item-selected {
+        background-color: rgba(7, 102, 173, 0.1);
+        color: ${props => props.ico};
+        font-weight: 600;
+        
+        &::before {
+            content: "";
+            width: 4px;
+            left: 0px;
+            border-radius: 0 4px 4px 0;
+            top: 12px;
+            position: absolute;
+            height: 24px;
+            background-color: ${props => props.ico};
+        }
     }
-
+    
+    .ant-menu-item .anticon {
+        font-size: 18px;
+        vertical-align: middle;
+    }
 `
+
 export const SideMenuContainer = styled(Sider)`
     background-color: ${props => props.bg} !important;
     border-right: .1rem solid #dbe0eb;
     z-index: 2;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.03);
+    transition: all 0.3s ease;
+    padding-top: 10px;
+    
+    .ant-layout-sider-children {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+    }
 `
+
 export const LayoutContent = styled(Content)`
     padding: 24px;
     margin-top: 65px;
@@ -61,15 +92,23 @@ export const LayoutContentContainer = styled(Content)`
 `
 export const LinkButton = styled(Button)`
     width: 100%;
-    height: 40px;
-    border-radius: 0.3rem;
+    height: 44px;
+    border-radius: 8px;
     font-size: 15px;
+    font-weight: 500;
+    box-shadow: 0 2px 6px rgba(7, 102, 173, 0.2);
+    transition: all 0.3s ease;
+    
+    &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(7, 102, 173, 0.3);
+    }
 `
 export const LinkButtonContainer = styled.div`
     display: flex;
     margin-top: 20px;
     width: 100%;
-    padding: 10px 10px;
+    padding: 10px 16px;
 `
 
 export const Arrow = styled(LeftOutlined)`
@@ -80,10 +119,25 @@ export const Arrow = styled(LeftOutlined)`
     top: 45px;
     right: -15px;
     background-color: white;
-    border-radius: 200px; 
+    border-radius: 50%;
     font-size: 10px; 
     cursor: pointer;
-    transform:rotate(${props => props.side == 'right' && "180deg"});
+    transform: rotate(${props => props.side == 'right' && "180deg"});
     transition: 0.2s ease all;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     
+    &:hover {
+        color: #0766AD;
+        border-color: #0766AD;
+    }
+`
+
+export const SidebarFooter = styled.div`
+    margin-top: auto;
+    padding: 16px;
+    border-top: 1px solid #dbe0eb;
+    display: ${props => props.collapsed ? 'none' : 'block'};
+    font-size: 12px;
+    color: #8c8c8c;
+    text-align: center;
 `

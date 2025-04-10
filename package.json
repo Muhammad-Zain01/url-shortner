@@ -14,6 +14,7 @@
     "@highcharts/map-collection": "^2.1.0",
     "antd": "^5.11.1",
     "axios": "^1.6.2",
+    "framer-motion": "^12.6.3",
     "highcharts": "^11.2.0",
     "highcharts-react-official": "^3.2.1",
     "react": "^18.2.0",

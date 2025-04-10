@@ -4,9 +4,11 @@ import { Typography, Divider, Form, message } from "antd"
 import { Input } from "../../components/input/input.component"
 import { Button } from "../../components/button/button.component"
 import { isValidUrl, TitleParser, IconParser } from "../../utils/helper"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import PrivateNavigate from "../../hook/usePrivateNavigate"
 import { verifyKeyword, addUrl } from "../../API/API.request"
+import { setPageTitle } from "../../utils/setPageTitle"
+
 const AddLink = () => {
     const { adminNavigate } = PrivateNavigate();
     const [title, setTitle] = useState('');
@@ -27,6 +29,11 @@ const AddLink = () => {
         validateStatus: "",
         help: ""
     });
+
+    useEffect(() => {
+        setPageTitle("Create New Link");
+    }, []);
+    
     const urlValidation = async (value) => {
         if (isValidUrl(value)) {
             setUrlConfig({

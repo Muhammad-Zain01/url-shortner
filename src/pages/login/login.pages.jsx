@@ -1,92 +1,137 @@
-import React, { useEffect, useState } from 'react';
-import { Form, Divider, message } from 'antd';
-import { LoginBox, LoginContainer } from './login.styles';
-import { UserOutlined, LockOutlined } from '@ant-design/icons';
-import { Login } from '../../API/API.request';
-import { Input } from '../../components/input/input.component';
-import { Button } from "../../components/button/button.component"
-import usePrivateNavigate from '../../hook/usePrivateNavigate';
-import useSession from '../../hook/useSession';
-import { Link } from 'react-router-dom';
-import GoogleButton from '../../components/google-button/google-button.components';
-import { reload } from '../../utils/helper';
-import Logo from '../../components/logo/logo.component';
-import useCookie from '../../hook/useCookies';
-const LoginPage = () => {
-    const { adminNavigate } = usePrivateNavigate();
-    const [loading, setLoading] = useState(false);
-    const Session = useSession();
-    const cookie = useCookie();
-    useEffect(() => {
-        adminNavigate()
-    }, [])
+import { useEffect, useState } from "react";
+import { Form, message } from "antd";
+import {
+  LoginBox,
+  LoginContainer,
+  FormTitle,
+  FooterText,
+} from "./login.styles";
+import { UserOutlined, LockOutlined } from "@ant-design/icons";
+import { Login } from "../../API/API.request";
+import { Input } from "../../components/input/input.component";
+import { Button } from "../../components/button/button.component";
+import usePrivateNavigate from "../../hook/usePrivateNavigate";
+import useSession from "../../hook/useSession";
+import { Link } from "react-router-dom";
+import { reload } from "../../utils/helper";
+import Logo from "../../components/logo/logo.component";
+import useCookie from "../../hook/useCookies";
+import { setPageTitle } from "../../utils/setPageTitle";
 
-    const onSubmit = async (value) => {
-        const { username, password } = value
-        setLoading(true)
-        const response = await Login(username, password)
-        if (response.status) {
-            const token = response?.data?.token;
-            if (token) {
-                cookie.set('token', token);
-                message.success('You have Login Successfully.');
-                Session.set('user', atob(token.split('.')[1]));
-                reload();
-            }
-            
-        } else {
-            message.error('Email or Password is not valid.');
+const LoginPage = () => {
+  const { adminNavigate } = usePrivateNavigate();
+  const [loading, setLoading] = useState(false);
+  const Session = useSession();
+  const cookie = useCookie();
+
+  useEffect(() => {
+    setPageTitle("Sign In");
+    adminNavigate();
+    // eslint-disable-next-line
+  }, []);
+
+  const onSubmit = async (value) => {
+    const { username, password } = value;
+    setLoading(true);
+    const response = await Login(username, password);
+    if (response.status) {
+      const token = response?.token;
+
+      if (token) {
+        // Ensure token is stored as a string
+        const tokenString =
+          typeof token === "object" ? JSON.stringify(token) : token;
+        cookie.set("token", tokenString);
+        try {
+          // Make sure we're using a valid JWT token format
+          if (
+            typeof tokenString === "string" &&
+            tokenString.split(".").length === 3
+          ) {
+            Session.set("user", atob(tokenString.split(".")[1]));
+            message.success("You have Login Successfully.");
+            reload();
+          } else {
+            message.error("Invalid token format received from server");
+            setLoading(false);
+          }
+        } catch (error) {
+          console.error("Error processing token:", error);
+          message.error("Error processing authentication token");
+          setLoading(false);
         }
-        setLoading(false)
+      }
+    } else {
+      message.error("Email or Password is not valid.");
     }
-    return (
-        <>
-            <LoginContainer>
-                <div style={{ marginBottom: 50 }}>
-                    <Logo />
-                </div>
-                <LoginBox >
-                    <Form
-                        name="normal_login"
-                        className="login-form"
-                        initialValues={{ remember: true }}
-                        onFinish={onSubmit}
-                    >
-                        <Form.Item
-                            name="username"
-                            rules={[{ required: true, message: 'Please input your Username!' }]}
-                        >
-                            <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" />
-                        </Form.Item>
-                        <Form.Item
-                            name="password"
-                            rules={[{ required: true, message: 'Please input your Password!' }]}
-                        >
-                            <Input
-                                prefix={<LockOutlined className="site-form-item-icon" />}
-                                type="password"
-                                placeholder="Password"
-                            />
-                        </Form.Item>
-                        <Form.Item style={{ display: 'flex', justifyContent: 'end' }}>
-                            <a className="login-form-forgot" href="/forgot-password">
-                                Forgot password
-                            </a>
-                        </Form.Item>
-                        <Form.Item>
-                            <Button size='medium' style={{ width: '100%' }} type="primary" htmlType="submit" loading={loading}>
-                                Log in
-                            </Button>
-                        </Form.Item>
-                    </Form>
-                    <Divider />
-                    {/* <GoogleButton>Login With Google</GoogleButton> */}
-                </LoginBox>
-                <div>
-                    Don't have an account? <Link to="/register">Sign up</Link>
-                </div>
-            </LoginContainer>
-        </>
-    )
-}
+    setLoading(false);
+  };
+
+  return (
+    <LoginContainer>
+      <LoginBox>
+        <div style={{ marginBottom: 32, textAlign: "center" }}>
+          <Logo />
+        </div>
+
+        <FormTitle>Sign In</FormTitle>
+
+        <Form
+          name="login_form"
+          layout="vertical"
+          initialValues={{ remember: true }}
+          onFinish={onSubmit}
+        >
+          <Form.Item
+            name="username"
+            rules={[{ required: true, message: "Please input your username" }]}
+          >
+            <Input
+              prefix={<UserOutlined style={{ color: "#bfbfbf" }} />}
+              placeholder="Username"
+              size="large"
+            />
+          </Form.Item>
+
+          <Form.Item
+            name="password"
+            rules={[{ required: true, message: "Please input your password" }]}
+          >
+            <Input
+              prefix={<LockOutlined style={{ color: "#bfbfbf" }} />}
+              type="password"
+              placeholder="Password"
+              size="large"
+            />
+          </Form.Item>
+
+          <Form.Item style={{ marginBottom: 12 }}>
+            <div style={{ textAlign: "right" }}>
+              <Link to="/forgot-password" style={{ fontSize: "14px" }}>
+                Forgot password?
+              </Link>
+            </div>
+          </Form.Item>
+
+          <Form.Item>
+            <Button
+              size="large"
+              style={{ width: "100%", height: "40px" }}
+              type="primary"
+              htmlType="submit"
+              loading={loading}
+            >
+              Sign In
+            </Button>
+          </Form.Item>
+        </Form>
+
+        <FooterText>
+          Don't have an account? <Link to="/register">Sign up</Link>
+        </FooterText>
+      </LoginBox>
+    </LoginContainer>
+  );
+};
+
 export default LoginPage;
